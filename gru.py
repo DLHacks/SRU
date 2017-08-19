@@ -21,7 +21,7 @@ class GRU(nn.Module):
         outputs = self.linear(htL)
         return outputs
     
-    def weight_init(self, init_forget_bias):
+    def initWeight(self, init_forget_bias=1):
         # See details in https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/rnn.py
         for name, params in self.named_parameters(): 
             # weightをxavierで初期化
@@ -40,9 +40,9 @@ class GRU(nn.Module):
             else:
                 init.constant(params, 0)
 
-    def init_hidden(self, batch_size, gpu=True):
+    def initHidden(self, batch_size, gpu=True):
         if gpu == True:
-            self.hidden = Variable(torch.randn(self.num_layers, batch_size, self.hidden_size).cuda())
+            self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size).cuda())
         else:
-            self.hidden = Variable(torch.randn(self.num_layers, batch_size, self.hidden_size))
+            self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
 
