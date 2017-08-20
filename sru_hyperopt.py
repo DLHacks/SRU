@@ -101,9 +101,9 @@ from hyperopt import fmin, tpe, hp, rand
 
 parameter_space = {
 	'phi_size':hp.quniform('phi_size', 1, 256, q=1),
-    'r_size':hp.quniform('num_layers', 1, 100, q=1),
+    'r_size':hp.quniform('r_size', 1, 100, q=1),
 	'l_rate': hp.loguniform("l_rate", -10, 0),
-    'clip': hp.loguniform("lr", 0, 3)
+    'clip': hp.loguniform("lr", 0, 10)
 }
 
 
