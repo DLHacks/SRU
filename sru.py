@@ -6,7 +6,7 @@ import torch.nn.init as init
 
 
 class SRU(nn.Module):
-    def __init__(self, input_size, phi_size, r_size, output_size, A=[0, 0.5, 0.9, 0.99], gpu=True):
+    def __init__(self, input_size, phi_size, r_size, output_size, A=[0, 0.5, 0.9, 0.99, 0.999], gpu=True):
         """
         input_size:  入力xの特徴量数
         phi_size:    phiのユニット数。\mu^{\alpha}の次元とも等しい
