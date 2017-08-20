@@ -62,7 +62,7 @@ class SRU(nn.Module):
         for name, params in self.named_parameters():
             # weightをxavierで初期化
             if 'weight' in name:
-                init.xavier_uniform(params)
+                init.xavier_uniform(params, init.calculate_gain('relu'))
             # biasを0で初期化
             else:
                 init.constant(params, 0)
