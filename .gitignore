@@ -2,3 +2,4 @@
 /data.zip
 /mnist
 __*
+*.log
