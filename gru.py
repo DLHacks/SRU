@@ -4,20 +4,23 @@ from torch.autograd import Variable
 import torch.nn.init as init
 
 class GRU(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, num_layers=1, dropout=0.2):
+    def __init__(self, input_size, hidden_size, output_size, num_layers=1, dropout=0, gpu=True):
         super(GRU, self).__init__()
 
+        self._gpu        = gpu
         self.hidden_size = hidden_size
-        self.num_layers = num_layers
-
-        self.gru = nn.GRU(input_size, hidden_size, num_layers=num_layers, dropout=dropout)
-        self.linear = nn.Linear(hidden_size, output_size)
+        self.num_layers  = num_layers
         
+        # 各layerの定義
+        self.gru = nn.GRU(input_size, hidden_size, num_layers=num_layers)
+        self.drop = nn.Dropout(p=dropout)
+        self.linear = nn.Linear(hidden_size, output_size)
 
     def forward(self, inputs):
         _, self.hidden = self.gru(inputs, self.hidden)
         # extract the last hidden layer from ht(n_layers, n_samples, hidden_size)
         htL = self.hidden[-1]
+        htL = self.drop(htL)
         outputs = self.linear(htL)
         return outputs
     
@@ -40,8 +43,8 @@ class GRU(nn.Module):
             else:
                 init.constant(params, 0)
 
-    def initHidden(self, batch_size, gpu=True):
-        if gpu == True:
+    def initHidden(self, batch_size):
+        if self._gpu == True:
             self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size).cuda())
         else:
             self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))

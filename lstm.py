@@ -4,13 +4,16 @@ from torch.autograd import Variable
 import torch.nn.init as init
 
 class LSTM(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, num_layers=1, dropout=0.2):
+    def __init__(self, input_size, hidden_size, output_size, num_layers=1, dropout=0, gpu=True):
         super(LSTM, self).__init__()
 
+        self._gpu        = gpu
         self.hidden_size = hidden_size
-        self.num_layers = num_layers
+        self.num_layers  = num_layers
 
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, dropout=dropout)
+        # 各layerの定義
+        self.lstm   = nn.LSTM(input_size, hidden_size, num_layers)
+        self.drop   = nn.Dropout(p=dropout)
         self.linear = nn.Linear(hidden_size, output_size)
         
 
@@ -19,6 +22,7 @@ class LSTM(nn.Module):
         _, self.hidden = self.lstm(inputs, self.hidden)
         # extract the last hidden layer from h_t(n_layers, n_samples, hidden_size)
         htL = self.hidden[0][-1]
+        htL = self.drop(htL)
         outputs = self.linear(htL)
         return outputs
     

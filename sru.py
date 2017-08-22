@@ -6,26 +6,29 @@ import torch.nn.init as init
 
 
 class SRU(nn.Module):
-    def __init__(self, input_size, phi_size, r_size, output_size, A=[0, 0.5, 0.9, 0.99, 0.999], gpu=True):
+    def __init__(self, input_size, phi_size, r_size, cell_out_size, output_size, A=[0, 0.5, 0.9, 0.99, 0.999], dropout=0, gpu=True):
         """
-        input_size:　inputの特徴量数
-        phi_size:    phiのユニット数。\mu^{\alpha}の次元とも等しい
-        r_size:      rのユニット数。
-        output_size: outputの次元
-        A:           [\alpha_1, \alpha_2, ..., \alpha_m]
+        input_size:　  inputの特徴量数
+        phi_size:      phiのユニット数。\mu^{\alpha}の次元とも等しい
+        r_size:        rのユニット数
+        cell_out_size: SRUCellからの出力のunit数
+        output_size:   outputの次元
+        A:             [\alpha_1, \alpha_2, ..., \alpha_m]
         """
 
         super(SRU, self).__init__()
 
         self._gpu = gpu
-        self.n_alpha      = len(A)
+        self.n_alpha  = len(A)
         self.phi_size = phi_size
-        self.mu_size = self.phi_size * self.n_alpha # muのユニット数 = phiのユニット数 * alphaの個数
+        self.mu_size  = self.phi_size * self.n_alpha # muのユニット数 = phiのユニット数 * alphaの個数
 
         # 各結合の定義
-        self.mu2r      = nn.Linear(self.mu_size, r_size)
-        self.xr2phi    = nn.Linear(input_size + r_size, phi_size)
-        self.mu2o      = nn.Linear(self.mu_size, output_size)
+        self.mu2r   = nn.Linear(self.mu_size, r_size)
+        self.xr2phi = nn.Linear(input_size + r_size, phi_size)
+        self.mu2o   = nn.Linear(self.mu_size, cell_out_size)
+        self.drop   = nn.Dropout(p=dropout)
+        self.linear = nn.Linear(cell_out_size, output_size) 
         
         # muphi2phiの準備
         # A_mask: Kronecker product of (A, ones(1, phi_size)),  shape => (1, mu_dim)
@@ -45,7 +48,9 @@ class SRU(nn.Module):
             r = F.relu(self.mu2r(self.mu))
             phi = F.relu(self.xr2phi(torch.cat((x, r), 1)))
             self.mu = self.muphi2mu(self.mu, phi)
-        outputs = F.relu(self.mu2o(self.mu))
+        cell_out = F.relu(self.mu2o(self.mu))
+        cell_out = self.drop(cell_out)
+        outputs  = self.linear(cell_out)
         return outputs
 
     def muphi2mu(self, mu, phi):
