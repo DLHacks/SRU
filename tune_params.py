@@ -197,7 +197,7 @@ def objective(args):
 
     for epoch in range(n_epochs):
         train_cost, test_cost, train_acc, test_acc  = 0, 0, 0, 0
-        train_X, train_y = shuffle(train_X, train_y, random_state=seed+epoch)
+        train_X, train_y = shuffle(train_X, train_y, random_state=seed)
 
         # 訓練
         model.train()
