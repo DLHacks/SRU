@@ -230,7 +230,7 @@ def objective(args):
         print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                            timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
 
-    print('%d回目: %.3' % (count, max(all_acc)))
+    print('%d回目: %.3f' % (count, max(all_acc)))
     # test_accの最大値を返す
     return max(all_acc)
 
