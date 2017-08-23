@@ -19,7 +19,7 @@ from models import SRU, GRU, LSTM
 ''' コマンドライン引数の設定 '''
 
 parser = argparse.ArgumentParser(description='Run hyperopt')
-parser.add_argument('--model', type=str, default='sru',
+parser.add_argument('model', type=str, default='sru',
                      help='[sru, gru, lstm]: select your model')
 parser.add_argument('--each-epoch', type=int, default=50,
                      help='select num of epochs for each trial')
@@ -155,7 +155,7 @@ def objective(args):
             hidden_size = int(args['hidden_size'])
             num_layers  = int(args['num_layers'])
             init_forget_bias = args['init_forget_bias']
-    elif: mode == 'limited'
+    elif mode == 'limited':
         if model_name == 'sru':
             phi_size      = 200
             r_size        = 60
@@ -184,7 +184,8 @@ def objective(args):
     # loss, optimizerの定義
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
-    scheduler = StepLR(optimizer, step_size=100, gamma=lr_decay)
+    # ToDo: schedulerの削除 or Optimizerを選べるようにする
+    # scheduler = StepLR(optimizer, step_size=100, gamma=lr_decay)
 
 
     ''' 訓練 '''
@@ -202,7 +203,7 @@ def objective(args):
         model.train()
         train_X_t = np.transpose(train_X, (1, 0, 2)) # X.shape => (seq_len, n_samples, n_features) に変換
         for i in range(n_batches):
-            scheduler.step()
+            # scheduler.step()
             start = i * batch_size
             end = start + batch_size
             inputs, labels = train_X_t[:, start:end, :], train_y[start:end]
