@@ -1,3 +1,5 @@
+""" Script for implementing hyperopt with rnn models. """
+
 import argparse
 import time
 import math
@@ -18,22 +20,25 @@ from models import SRU, GRU, LSTM
 
 parser = argparse.ArgumentParser(description='Run hyperopt')
 parser.add_argument('--model', type=str, default='sru',
-                     help='select your model from [sru, gru, lstm]')
-parser.add_argument('--each-epoch', type=int, default=10,
+                     help='[sru, gru, lstm]: select your model')
+parser.add_argument('--each-epoch', type=int, default=50,
                      help='select num of epochs for each trial')
 parser.add_argument('--seed', type=int, default=0,
                      help='set random seed')
 parser.add_argument('--devise-id', type=int, default=0,
                      help='select gpu devise id')
+parser.add_argument('--mode', type=str, default='limited',
+                     help='[limited, full]: choose whether you train full or limited parameters')
 args       = parser.parse_args()
 model_name = args.model
 n_epochs   = args.each_epoch
 seed       = args.seed
 devise_id  = args.devise_id
+mode       = args.mode
 
 torch.cuda.manual_seed(seed)
 torch.cuda.set_device(devise_id)
-print('Bayesian optimization of %s' % model_name))
+print('Bayesian optimization of %s' % model_name)
 
 ''' データセット準備 '''
 
@@ -106,25 +111,28 @@ def testate(model, inputs, labels, optimizer, criterion):
 
 ''' パラメータの準備 '''
 
-if model_name == 'sru':
-    parameter_space = {
-        'phi_size': hp.quniform('phi_size', 1, 256, q=1),
-        'r_size':   hp.quniform('r_size', 1, 64, q=1),
-        'cell_out_size': hp.quniform('cell_out_size', 1, 256, q=1)
-    }
-elif model_name in ['gru', 'lstm']:
-    parameter_space = {
-        'hidden_size': hp.quniform('hidden_size', 1, 256, q=1),
-        'num_layers':  hp.quniform('num_layers', 1, 5, q=1),
-        'init_forget_bias': hp.loguniform('init_forget_bias', -3, 3)
-    }
-parameter_space.update({
-        'l_rate': hp.loguniform('l_rate', -10, 0),
-        'lr_decay':hp.uniform('lr_decay', 0.8, 0.999),
-        'dropout':hp.uniform('dropout', 0, 1),
-        'clip': hp.loguniform('clip', 0, 10)
-    })
+parameter_space = ({
+    'l_rate': hp.loguniform('l_rate', -10, 0),
+    'lr_decay': hp.uniform('lr_decay', 0.8, 0.999),
+    'weight_decay': hp.loguniform('weight_decay', -12, -6),
+    'dropout':hp.uniform('dropout', 0, 1),
+    'clip': hp.loguniform('clip', 0, 10)
+})
+if mode == 'full':
+    if model_name == 'sru':
+        parameter_space.update({
+            'phi_size': hp.quniform('phi_size', 1, 256, q=1),
+            'r_size': hp.quniform('r_size', 1, 64, q=1),
+            'cell_out_size': hp.quniform('cell_out_size', 1, 256, q=1)
+        })
+    elif model_name in ['gru', 'lstm']:
+        parameter_space.update({
+            'hidden_size': hp.quniform('hidden_size', 1, 256, q=1),
+            'num_layers': hp.quniform('num_layers', 1, 5, q=1),
+            'init_forget_bias': hp.loguniform('init_forget_bias', -3, 3)
+        })
 count = 0
+
 
 ''' 目的関数の定義 '''
 
@@ -133,18 +141,29 @@ def objective(args):
     count += 1
 
     print(args)
-    if model_name == 'sru':
-        phi_size      = int(args['phi_size'])
-        r_size        = int(args['r_size'])
-        cell_out_size = int(args['cell_out_size'])
-    elif model_name in ['gru', 'lstm']:
-        hidden_size = int(args['hidden_size'])
-        num_layers  = int(args['num_layers'])
-        init_forget_bias = args['init_forget_bias']
     lr            = args['l_rate']
     lr_decay      = args['lr_decay']
+    weight_decay  = args['weight_decay']
     dropout       = args['dropout']
     clip          = args['clip']
+    if mode == 'full':
+        if model_name == 'sru':
+            phi_size      = int(args['phi_size'])
+            r_size        = int(args['r_size'])
+            cell_out_size = int(args['cell_out_size'])
+        elif model_name in ['gru', 'lstm']:
+            hidden_size = int(args['hidden_size'])
+            num_layers  = int(args['num_layers'])
+            init_forget_bias = args['init_forget_bias']
+    elif: mode == 'limited'
+        if model_name == 'sru':
+            phi_size      = 200
+            r_size        = 60
+            cell_out_size = 200
+        elif model_name in ['gru', 'lstm']:
+            hidden_size = 200
+            num_layers  = 1
+            init_forget_bias = 1
 
     train_X, test_X, train_y, test_y = load_mnist()
     input_size = train_X.shape[2]
@@ -164,7 +183,7 @@ def objective(args):
 
     # loss, optimizerの定義
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr=lr)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = StepLR(optimizer, step_size=100, gamma=lr_decay)
 
 
