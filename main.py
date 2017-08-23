@@ -20,9 +20,9 @@ from models import SRU, GRU, LSTM
 parser = argparse.ArgumentParser(description='Run mnist classifier')
 parser.add_argument('model', type=str, default='sru',
                      help='[sru, gru, lstm]: select your model')
-parser.add_argument('--epochs', type=int, default=100,
+parser.add_argument('--epochs', type=int, default=200,
                      help='select num of epochs.')
-parser.add_argument('--seed', type=int, default=0,
+parser.add_argument('--seed', type=int, default=42,
                      help='set random seed')
 parser.add_argument('--devise-id', type=int, default=0,
                      help='select gpu devise id')
@@ -123,10 +123,10 @@ def testate(model, inputs, labels, optimizer, criterion):
 
 ''' パラメータ等の準備 '''
 
-lr            = 0.01
+lr            = 0.1
 lr_decay      = 0.999
 weight_decay  = 0.0001
-dropout       = 0.5
+dropout       = 0.2
 clip          = 1
 if xtype == '1d':
     if model_name == 'sru':
