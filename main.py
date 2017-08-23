@@ -17,13 +17,13 @@ from models import SRU, GRU, LSTM
 ''' コマンドライン引数の設定 '''
 
 parser = argparse.ArgumentParser(description='Run hyperopt')
-parser.add_argument('model', type=str, nargs='?', default='sru',
+parser.add_argument('--model', type=str, default='sru',
                      help='select your model from [sru, gru, lstm]')
-parser.add_argument('--each-epoch', type=int, nargs='?', default=10,
+parser.add_argument('--each-epoch', type=int, default=10,
                      help='select num of epochs for each trial')
-parser.add_argument('--seed', type=int, nargs='?', default=0,
+parser.add_argument('--seed', type=int, default=0,
                      help='set random seed')
-parser.add_argument('--devise-id', type=int, nargs='?', default=0,
+parser.add_argument('--devise-id', type=int, default=0,
                      help='select gpu devise id')
 args       = parser.parse_args()
 model_name = args.model
