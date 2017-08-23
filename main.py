@@ -116,7 +116,7 @@ elif model_name in ['gru', 'lstm']:
     parameter_space = {
         'hidden_size': hp.quniform('hidden_size', 1, 256, q=1),
         'num_layers':  hp.quniform('num_layers', 1, 5, q=1),
-        'init_forget_bias': hp.uniform('init_forget_bias', 0, 20)
+        'init_forget_bias': hp.loguniform('init_forget_bias', -3, 3)
     }
 parameter_space.update({
         'l_rate': hp.loguniform('l_rate', -10, 0),
