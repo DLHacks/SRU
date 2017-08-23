@@ -32,10 +32,9 @@ class SRU(nn.Module):
         
         # muphi2phiの準備
         # A_mask: Kronecker product of (A, ones(1, phi_size)),  shape => (1, mu_dim)
+        self.A_mask = torch.Tensor([x for x in(A) for i in range(phi_size)]).view(1, -1)
         if self._gpu == True:
-            self.A_mask = torch.Tensor([x for x in(A) for i in range(phi_size)]).view(1, -1).cuda()
-        else:
-            self.A_mask = torch.Tensor([x for x in(A) for i in range(phi_size)]).view(1, -1)
+            self.A_mask = self.A_mask.cuda()
         # A_maskは定数項なのでrequires_grad=Falseをつける
         self.A_mask = Variable(self.A_mask, requires_grad=False)
 
@@ -73,10 +72,9 @@ class SRU(nn.Module):
                 init.constant(params, 0)
 
     def initHidden(self, batch_size):
+        self.mu = Variable(torch.zeros(batch_size, self.mu_size))
         if self._gpu == True:
-            self.mu = Variable(torch.zeros(batch_size, self.mu_size)).cuda()
-        else:
-            self.mu = Variable(torch.zeros(batch_size, self.mu_size))
+            self.mu = self.mu.cuda()
 
 
 class GRU(nn.Module):
@@ -120,10 +118,9 @@ class GRU(nn.Module):
                 init.constant(params, 0)
 
     def initHidden(self, batch_size):
+        self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
         if self._gpu == True:
-            self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size).cuda())
-        else:
-            self.hidden = Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size))
+            self.hidden = self.hidden.cuda()
 
 
 class LSTM(nn.Module):
@@ -168,8 +165,8 @@ class LSTM(nn.Module):
             else:
                 init.constant(params, 0)
 
-    def initHidden(self, batch_size, gpu=True):
-        if gpu == True:
+    def initHidden(self, batch_size):
+        if self._gpu == True:
             self.hidden = (Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size).cuda()),
                            Variable(torch.zeros(self.num_layers, batch_size, self.hidden_size).cuda()))
         else:
