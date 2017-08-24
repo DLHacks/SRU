@@ -13,7 +13,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
-from hyperopt import fmin, tpe, hp, rand
+from hyperopt import fmin, tpe, hp
 from models import SRU, GRU, LSTM
 
 
@@ -246,17 +246,22 @@ def objective(args):
             test_cost += cost / n_batches_test
             test_acc += accuracy / n_batches_test
 
+        all_acc.append(test_acc)
         print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                            timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
 
         # 過去のエポックのtest_accを上回った時だけモデルの保存
-        if len(all_acc) == 0 or test_acc > max(all_acc):
+        if len(all_acc) == 1 or test_acc > max(all_acc):
             checkpoint(model, optimizer, test_acc*10000)
-        all_acc.append(test_acc)
 
-        # 勾配爆発したときに早期打ち切り
-        if train_cost != train_cost or train_cost > 100000:
+        # costが爆発したときに学習打ち切り
+        if test_cost != test_cost or test_cost > 100000:
             print('Stop learning due to the extremely high cost')
+            break
+
+        # 直近5epochsのtest_costから学習が進まないときに早期打ち切り
+        if (np.array(all_acc)[-5:] <= test_acc).all():
+            print('Early stopping observing no learning')
             break
 
     print('%d回目 max test_acc: %.3f' % (count, max(all_acc)))
@@ -266,7 +271,7 @@ def objective(args):
     # test_accの最大値をhyperoptに評価させる
     return max(all_acc)
 
-best = fmin(objective, parameter_space, algo=rand.suggest, max_evals=iteration,
+best = fmin(objective, parameter_space, algo=tpe.suggest, max_evals=iteration,
             rstate=np.random.RandomState(seed))
 print(best)
 
