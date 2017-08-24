@@ -266,6 +266,7 @@ def objective(args):
     # test_accの最大値をhyperoptに評価させる
     return max(all_acc)
 
-best = fmin(objective, parameter_space, algo=rand.suggest, max_evals=iteration)
+best = fmin(objective, parameter_space, algo=rand.suggest, max_evals=iteration,
+            rstate=np.random.RandomState(seed))
 print(best)
 
