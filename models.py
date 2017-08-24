@@ -8,7 +8,7 @@ import torch.nn.init as init
 class SRU(nn.Module):
     def __init__(self, input_size, phi_size, r_size, cell_out_size, output_size, A=[0, 0.5, 0.9, 0.99, 0.999], dropout=0, gpu=True):
         """
-        input_size:　  inputの特徴量数
+        input_size:    inputの特徴量数
         phi_size:      phiのユニット数。\mu^{\alpha}の次元とも等しい
         r_size:        rのユニット数
         cell_out_size: SRUCellからの出力のunit数
@@ -28,8 +28,8 @@ class SRU(nn.Module):
         self.xr2phi = nn.Linear(input_size + r_size, phi_size)
         self.mu2o   = nn.Linear(self.mu_size, cell_out_size)
         self.drop   = nn.Dropout(p=dropout)
-        self.linear = nn.Linear(cell_out_size, output_size) 
-        
+        self.linear = nn.Linear(cell_out_size, output_size)
+
         # muphi2phiの準備
         # A_mask: Kronecker product of (A, ones(1, phi_size)),  shape => (1, mu_dim)
         self.A_mask = torch.Tensor([x for x in(A) for i in range(phi_size)]).view(1, -1)
@@ -84,7 +84,7 @@ class GRU(nn.Module):
         self._gpu        = gpu
         self.hidden_size = hidden_size
         self.num_layers  = num_layers
-        
+
         # 各layerの定義
         self.gru = nn.GRU(input_size, hidden_size, num_layers=num_layers)
         self.drop = nn.Dropout(p=dropout)
@@ -97,10 +97,10 @@ class GRU(nn.Module):
         htL = self.drop(htL)
         outputs = self.linear(htL)
         return outputs
-    
+
     def initWeight(self, init_forget_bias=1):
         # See details in https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/rnn.py
-        for name, params in self.named_parameters(): 
+        for name, params in self.named_parameters():
             # weightをxavierで初期化
             if 'weight' in name:
                 init.xavier_uniform(params)
@@ -135,7 +135,6 @@ class LSTM(nn.Module):
         self.lstm   = nn.LSTM(input_size, hidden_size, num_layers)
         self.drop   = nn.Dropout(p=dropout)
         self.linear = nn.Linear(hidden_size, output_size)
-        
 
     def forward(self, inputs):
         # hidden = (h_t, c_t)
@@ -145,10 +144,10 @@ class LSTM(nn.Module):
         htL = self.drop(htL)
         outputs = self.linear(htL)
         return outputs
-    
+
     def initWeight(self, init_forget_bias=1):
         # See https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/rnn.py
-        for name, params in self.named_parameters(): 
+        for name, params in self.named_parameters():
             # weightをxavierで初期化
             if 'weight' in name:
                 init.xavier_uniform(params)

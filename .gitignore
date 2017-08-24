@@ -4,3 +4,5 @@
 __*
 *.log
 .ipynb*
+/logs
+/sandbox
