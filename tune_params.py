@@ -22,6 +22,8 @@ from models import SRU, GRU, LSTM
 parser = argparse.ArgumentParser(description='Run hyperopt')
 parser.add_argument('model', type=str, default='sru',
                      help='[sru, gru, lstm]: select your model')
+parser.add_argument('--gpu', type=int, default=1,
+                     help='set -1 when you use cpu')
 parser.add_argument('--iter', type=int, default=50,
                      help='select num of hyperopt iteration')
 parser.add_argument('--epochs-per-iter', type=int, default=50,
@@ -34,6 +36,7 @@ parser.add_argument('--mode', type=str, default='limited',
                      help='[limited, full]: choose whether you train full or limited parameters')
 args       = parser.parse_args()
 model_name = args.model
+gpu        = args.gpu
 iteration  = args.iter
 n_epochs   = args.epochs_per_iter
 seed       = args.seed
@@ -41,8 +44,10 @@ devise_id  = args.devise_id
 mode       = args.mode
 
 torch.cuda.manual_seed(seed)
-torch.cuda.set_device(devise_id)
+if gpu == True:
+    torch.cuda.set_device(devise_id)
 dir_path = './trained_models/%s_%s' % (model_name, mode)
+count = 0
 print('Bayesian optimization of %s starts' % model_name)
 
 
@@ -122,19 +127,22 @@ def checkpoint(model, optimizer, acc):
     torch.save(optimizer.state_dict(), filename + '.state')
 
 
-''' パラメータの準備 '''
+''' パラメータの準備
+mode == limited: 学習率、重み減退、ドロップアウト、Gradient Clippingのみチューニング
+mode == full:    上記に加えて、隠れ層のunit数などもチューニング
+'''
 
 parameter_space = ({
-    'l_rate': hp.loguniform('l_rate', -10, 0),
+    'l_rate':       hp.loguniform('l_rate', -10, 0), # 注: 'lr' is depricated
     'weight_decay': hp.loguniform('weight_decay', -12, -4),
-    'dropout':hp.uniform('dropout', 0, 1),
-    'clip': hp.loguniform('clip', 0, 10)
+    'dropout':      hp.uniform('dropout', 0, 1),
+    'clip':         hp.loguniform('clip', 0, 10)
 })
 if mode == 'full':
     if model_name == 'sru':
         parameter_space.update({
             'phi_size': hp.quniform('phi_size', 1, 256, q=1),
-            'r_size': hp.quniform('r_size', 1, 64, q=1),
+            'r_size':   hp.quniform('r_size', 1, 64, q=1),
             'cell_out_size': hp.quniform('cell_out_size', 1, 256, q=1)
         })
     elif model_name in ['gru', 'lstm']:
@@ -143,7 +151,6 @@ if mode == 'full':
             'num_layers': hp.quniform('num_layers', 1, 5, q=1),
             'init_forget_bias': hp.loguniform('init_forget_bias', -3, 3)
         })
-count = 0
 
 
 ''' 目的関数の定義 '''
@@ -181,15 +188,16 @@ def objective(args):
 
     # モデルのインスタンスの作成
     if model_name == 'sru':
-        model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout)
+        model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout, gpu=gpu)
         model.initWeight()
     elif model_name == 'gru':
-        model = GRU(input_size, hidden_size, output_size, num_layers, dropout)
+        model = GRU(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
         model.initWeight(init_forget_bias)
     elif model_name == 'lstm':
-        model = LSTM(input_size, hidden_size, output_size, num_layers, dropout)
+        model = LSTM(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
         model.initWeight(init_forget_bias)
-    model.cuda()
+    if gpu == True:
+        model.cuda()
 
     # loss, optimizerの定義
     criterion = nn.CrossEntropyLoss()
@@ -214,8 +222,10 @@ def objective(args):
             start = i * batch_size
             end = start + batch_size
             inputs, labels = train_X_t[:, start:end, :], train_y[start:end]
-            inputs, labels = Variable(torch.from_numpy(inputs).cuda()
-                             ), Variable(torch.from_numpy(labels).cuda())
+            inputs, labels = Variable(torch.from_numpy(inputs)
+                             ), Variable(torch.from_numpy(labels))
+            if gpu == True:
+                inputs, labels = inputs.cuda(), labels.cuda()
             cost, accuracy = train(model, inputs, labels, optimizer, criterion, clip)
             train_cost += cost / n_batches
             train_acc  += accuracy / n_batches
@@ -227,8 +237,10 @@ def objective(args):
             start = i * batch_size
             end = start + batch_size
             inputs, labels = test_X_t[:, start:end, :], test_y[start:end]
-            inputs, labels = Variable(torch.from_numpy(inputs).cuda()
-                             ), Variable(torch.from_numpy(labels).cuda())
+            inputs, labels = Variable(torch.from_numpy(inputs)
+                             ), Variable(torch.from_numpy(labels))
+            if gpu == True:
+                inputs, labels = inputs.cuda(), labels.cuda()
             cost, accuracy = test(model, inputs, labels, optimizer, criterion)
             test_cost += cost / n_batches_test
             test_acc += accuracy / n_batches_test
@@ -236,7 +248,7 @@ def objective(args):
         print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                            timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
 
-        # モデルの保存
+        # 過去のエポックのtest_accを上回った時だけモデルの保存
         if len(all_acc) == 0 or test_acc > max(all_acc):
             checkpoint(model, optimizer, test_acc*10000)
         all_acc.append(test_acc)
@@ -248,7 +260,8 @@ def objective(args):
     print('%d回目 max test_acc: %.3f' % (count, max(all_acc)))
     print(args)
     print('--------------------------------------------------------')
-    # test_accの最大値を返す
+
+    # test_accの最大値をhyperoptに評価させる
     return max(all_acc)
 
 best = fmin(objective, parameter_space, algo=rand.suggest, max_evals=iteration)
