@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 """ Script for implementing hyperopt with rnn models. """
 
+import os
 import argparse
 import time
 import math
@@ -10,7 +12,6 @@ from sklearn.datasets import fetch_mldata
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import StepLR
 from torch.autograd import Variable
 from hyperopt import fmin, tpe, hp, rand
 from models import SRU, GRU, LSTM
@@ -21,8 +22,10 @@ from models import SRU, GRU, LSTM
 parser = argparse.ArgumentParser(description='Run hyperopt')
 parser.add_argument('model', type=str, default='sru',
                      help='[sru, gru, lstm]: select your model')
-parser.add_argument('--each-epoch', type=int, default=50,
-                     help='select num of epochs for each trial')
+parser.add_argument('--iter', type=int, default=50,
+                     help='select num of hyperopt iteration')
+parser.add_argument('--epochs-per-iter', type=int, default=50,
+                     help='select num of epochs for each iteration')
 parser.add_argument('--seed', type=int, default=0,
                      help='set random seed')
 parser.add_argument('--devise-id', type=int, default=0,
@@ -31,14 +34,17 @@ parser.add_argument('--mode', type=str, default='limited',
                      help='[limited, full]: choose whether you train full or limited parameters')
 args       = parser.parse_args()
 model_name = args.model
-n_epochs   = args.each_epoch
+iteration  = args.iter
+n_epochs   = args.epochs_per_iter
 seed       = args.seed
 devise_id  = args.devise_id
 mode       = args.mode
 
 torch.cuda.manual_seed(seed)
 torch.cuda.set_device(devise_id)
-print('Bayesian optimization of %s' % model_name)
+dir_path = './trained_models/%s_%s' % (model_name, mode)
+print('Bayesian optimization of %s starts' % model_name)
+
 
 ''' データセット準備 '''
 
@@ -98,9 +104,8 @@ def train(model, inputs, labels, optimizer, criterion, clip):
     acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
     return loss.data[0], acc
 
-
 # 検証
-def testate(model, inputs, labels, optimizer, criterion):
+def test(model, inputs, labels, optimizer, criterion):
     batch_size = inputs.size(1)
     model.initHidden(batch_size)
     outputs = model(inputs)
@@ -108,13 +113,20 @@ def testate(model, inputs, labels, optimizer, criterion):
     acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
     return loss.data[0], acc
 
+# モデルの保存
+def checkpoint(model, optimizer, acc):
+    filename = os.path.join(dir_path, 'count-%d_acc-%d' % (count, acc))
+    # modelの状態保存
+    torch.save(model.state_dict(), filename + '.model')
+    # optimizerの状態保存
+    torch.save(optimizer.state_dict(), filename + '.state')
+
 
 ''' パラメータの準備 '''
 
 parameter_space = ({
     'l_rate': hp.loguniform('l_rate', -10, 0),
-    'lr_decay': hp.uniform('lr_decay', 0.8, 0.999),
-    'weight_decay': hp.loguniform('weight_decay', -12, -6),
+    'weight_decay': hp.loguniform('weight_decay', -12, -4),
     'dropout':hp.uniform('dropout', 0, 1),
     'clip': hp.loguniform('clip', 0, 10)
 })
@@ -140,9 +152,7 @@ def objective(args):
     global count
     count += 1
 
-    print(args)
     lr            = args['l_rate']
-    lr_decay      = args['lr_decay']
     weight_decay  = args['weight_decay']
     dropout       = args['dropout']
     clip          = args['clip']
@@ -184,12 +194,10 @@ def objective(args):
     # loss, optimizerの定義
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
-    # ToDo: schedulerの削除 or Optimizerを選べるようにする
-    # scheduler = StepLR(optimizer, step_size=100, gamma=lr_decay)
 
 
     ''' 訓練 '''
-    batch_size = 128
+    batch_size = 512
     n_batches = train_X.shape[0]//batch_size
     n_batches_test = test_X.shape[0]//batch_size
     all_acc = []
@@ -203,7 +211,6 @@ def objective(args):
         model.train()
         train_X_t = np.transpose(train_X, (1, 0, 2)) # X.shape => (seq_len, n_samples, n_features) に変換
         for i in range(n_batches):
-            # scheduler.step()
             start = i * batch_size
             end = start + batch_size
             inputs, labels = train_X_t[:, start:end, :], train_y[start:end]
@@ -222,18 +229,28 @@ def objective(args):
             inputs, labels = test_X_t[:, start:end, :], test_y[start:end]
             inputs, labels = Variable(torch.from_numpy(inputs).cuda()
                              ), Variable(torch.from_numpy(labels).cuda())
-            cost, accuracy = testate(model, inputs, labels, optimizer, criterion)
+            cost, accuracy = test(model, inputs, labels, optimizer, criterion)
             test_cost += cost / n_batches_test
             test_acc += accuracy / n_batches_test
 
-        all_acc.append(test_acc)
         print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                            timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
 
-    print('%d回目: %.3f' % (count, max(all_acc)))
+        # モデルの保存
+        if len(all_acc) == 0 or test_acc > max(all_acc):
+            checkpoint(model, optimizer, test_acc*10000)
+        all_acc.append(test_acc)
+
+        # 勾配爆発したときに早期打ち切り
+        if train_cost != train_cost or train_cost > 100000:
+            break
+
+    print('%d回目 max test_acc: %.3f' % (count, max(all_acc)))
+    print(args)
+    print('--------------------------------------------------------')
     # test_accの最大値を返す
     return max(all_acc)
 
-best = fmin(objective, parameter_space, algo=rand.suggest, max_evals=100)
+best = fmin(objective, parameter_space, algo=rand.suggest, max_evals=iteration)
 print(best)
 
