@@ -201,7 +201,7 @@ def objective(args):
 
     # loss, optimizerの定義
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
 
     ''' 訓練 '''
@@ -255,6 +255,7 @@ def objective(args):
 
         # 勾配爆発したときに早期打ち切り
         if train_cost != train_cost or train_cost > 100000:
+            print('Stop learning due to the extremely high cost')
             break
 
     print('%d回目 max test_acc: %.3f' % (count, max(all_acc)))
