@@ -20,23 +20,27 @@ from models import SRU, GRU, LSTM
 parser = argparse.ArgumentParser(description='Run mnist classifier')
 parser.add_argument('model', type=str, default='sru',
                      help='[sru, gru, lstm]: select your model')
+parser.add_argument('--gpu', type=int, default=1,
+                     help='set -1 when you use cpu')
 parser.add_argument('--epochs', type=int, default=200,
                      help='select num of epochs.')
 parser.add_argument('--seed', type=int, default=42,
                      help='set random seed')
 parser.add_argument('--devise-id', type=int, default=0,
                      help='select gpu devise id')
-parser.add_argument('--xtype', type=str, default='1d',
-                     help='[1d, 2d]: select the shape of X')
+parser.add_argument('--dataset', type=str, default='1d',
+                     help='[1d, 2d]: select the type of X')
 args       = parser.parse_args()
 model_name = args.model
+gpu        = args.gpu
 n_epochs   = args.epochs
 seed       = args.seed
 devise_id  = args.devise_id
-xtype      = args.xtype
+dataset    = args.dataset
 
 torch.cuda.manual_seed(seed)
-torch.cuda.set_device(devise_id)
+if gpu == True:
+    torch.cuda.set_device(devise_id)
 
 
 ''' データセット準備 '''
@@ -110,9 +114,8 @@ def train(model, inputs, labels, optimizer, criterion, clip):
     acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
     return loss.data[0], acc
 
-
 # 検証
-def testate(model, inputs, labels, optimizer, criterion):
+def test(model, inputs, labels, optimizer, criterion):
     batch_size = inputs.size(1)
     model.initHidden(batch_size)
     outputs = model(inputs)
@@ -120,56 +123,46 @@ def testate(model, inputs, labels, optimizer, criterion):
     acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
     return loss.data[0], acc
 
-
 ''' パラメータ等の準備 '''
 
-lr            = 0.1
-lr_decay      = 0.999
-weight_decay  = 0.0001
-dropout       = 0.2
+lr            = 0.0005
+weight_decay  = 0.0005
+dropout       = 0.8
 clip          = 1
-if xtype == '1d':
-    if model_name == 'sru':
-        phi_size      = 200
-        r_size        = 64
-        cell_out_size = 200
-    elif model_name in ['gru', 'lstm']:
-        hidden_size = 100
-        num_layers  = 1
-        init_forget_bias = 1
-elif xtype == '2d':
-    if model_name == 'sru':
-        phi_size      = 100
-        r_size        = 30
-        cell_out_size = 100
-    elif model_name in ['gru', 'lstm']:
-        hidden_size = 50
-        num_layers  = 1
-        init_forget_bias = 1
+
+if model_name == 'sru':
+    phi_size      = 200
+    r_size        = 64
+    cell_out_size = 200
+elif model_name in ['gru', 'lstm']:
+    hidden_size = 200
+    num_layers  = 1
+    init_forget_bias = 1
 
 if xtype == '1d':
     train_X, test_X, train_y, test_y = load_mnist_1d()
 elif xtype == '2d':
-    train_X, test_X, train_y, test_y = load_mnist2d()
+    train_X, test_X, train_y, test_y = load_mnist_2d()
+
 input_size = train_X.shape[2]
 output_size = np.unique(train_y).size
 
-# モデルのインスタンスの作成
+# モデルのインスタンス作成
 if model_name == 'sru':
-    model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout)
+    model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout, gpu=gpu)
     model.initWeight()
 elif model_name == 'gru':
-    model = GRU(input_size, hidden_size, output_size, num_layers, dropout)
+    model = GRU(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
     model.initWeight(init_forget_bias)
 elif model_name == 'lstm':
-    model = LSTM(input_size, hidden_size, output_size, num_layers, dropout)
+    model = LSTM(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
     model.initWeight(init_forget_bias)
-model.cuda()
+if gpu == True:
+    model.cuda()
 
 # loss, optimizerの定義
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=lr)
-scheduler = StepLR(optimizer, step_size=100, gamma=lr_decay) # 100batchごとに学習率を減退
+optimizer = optim.SGD(model.parameters(), lr=lr, weight_decay=weight_decay)
 
 
 ''' 訓練の実行 '''
@@ -181,7 +174,6 @@ all_acc = []
 start_time = time.time()
 
 for epoch in range(n_epochs):
-    scheduler.step() # 学習率の減退
     train_cost, test_cost, train_acc, test_acc  = 0, 0, 0, 0
     train_X, train_y = shuffle(train_X, train_y, random_state=seed)
 
@@ -193,8 +185,10 @@ for epoch in range(n_epochs):
         start = i * batch_size
         end = start + batch_size
         inputs, labels = train_X_t[:, start:end, :], train_y[start:end]
-        inputs, labels = Variable(torch.from_numpy(inputs).cuda()
-                         ), Variable(torch.from_numpy(labels).cuda())
+        inputs, labels = Variable(torch.from_numpy(inputs)
+                         ), Variable(torch.from_numpy(labels))
+        if gpu == True:
+            inputs, labels = inputs.cuda(), labels.cuda()
         cost, accuracy = train(model, inputs, labels, optimizer, criterion, clip)
         train_cost += cost / n_batches
         train_acc  += accuracy / n_batches
@@ -206,14 +200,21 @@ for epoch in range(n_epochs):
         start = i * batch_size
         end = start + batch_size
         inputs, labels = test_X_t[:, start:end, :], test_y[start:end]
-        inputs, labels = Variable(torch.from_numpy(inputs).cuda()
-                         ), Variable(torch.from_numpy(labels).cuda())
-        cost, accuracy = testate(model, inputs, labels, optimizer, criterion)
+        inputs, labels = Variable(torch.from_numpy(inputs)
+                         ), Variable(torch.from_numpy(labels))
+        if gpu == True:
+            inputs, labels = inputs.cuda(), labels.cuda()
+        cost, accuracy = test(model, inputs, labels, optimizer, criterion)
         test_cost += cost / n_batches_test
         test_acc += accuracy / n_batches_test
+
+    # 勾配爆発したときに早期打ち切り
+    if train_cost != train_cost or train_cost > 100000:
+        print('Stop learning due to the extremely high cost')
+        break
 
     all_acc.append(test_acc)
     print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                        timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
 
-print('Max test acc: %.3f' % max(all_acc))
+print('Max test_acc: %.3f' % max(all_acc))
