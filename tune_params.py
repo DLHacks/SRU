@@ -120,7 +120,8 @@ def test(model, inputs, labels, optimizer, criterion):
 
 # モデルの保存
 def checkpoint(model, optimizer, acc):
-    filename = os.path.join(dir_path, 'count-%d_acc-%d' % (count, acc))
+    filename = os.path.join(dir_path,
+               '%s_count-%d_acc-%d' % (model.__class__.__name__, count, acc))
     # modelの状態保存
     torch.save(model.state_dict(), filename + '.model')
     # optimizerの状態保存

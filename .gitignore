@@ -6,3 +6,4 @@ __*
 .ipynb*
 /logs
 /sandbox
+/trained_models/ipynb/*
