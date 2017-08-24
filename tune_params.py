@@ -26,7 +26,7 @@ parser.add_argument('--gpu', type=int, default=1,
                      help='set -1 when you use cpu')
 parser.add_argument('--iter', type=int, default=50,
                      help='select num of hyperopt iteration')
-parser.add_argument('--epochs-per-iter', type=int, default=50,
+parser.add_argument('--epochs-per-iter', type=int, default=100,
                      help='select num of epochs for each iteration')
 parser.add_argument('--seed', type=int, default=0,
                      help='set random seed')
@@ -43,9 +43,11 @@ seed       = args.seed
 devise_id  = args.devise_id
 mode       = args.mode
 
-torch.cuda.manual_seed(seed)
 if gpu == True:
+    torch.cuda.manual_seed(seed)
     torch.cuda.set_device(devise_id)
+else:
+    torch.manual_seed(seed)
 dir_path = './trained_models/%s_%s' % (model_name, mode)
 count = 0
 print('Bayesian optimization of %s starts' % model_name)
@@ -159,6 +161,9 @@ if mode == 'full':
 def objective(args):
     global count
     count += 1
+    print('-------------------------------------------------------------------')
+    print('%d回目' % count)
+    print(args)
 
     lr            = args['l_rate']
     weight_decay  = args['weight_decay']
@@ -209,7 +214,7 @@ def objective(args):
     batch_size = 512
     n_batches = train_X.shape[0]//batch_size
     n_batches_test = test_X.shape[0]//batch_size
-    all_acc = []
+    all_cost, all_acc = [], []
     start_time = time.time()
 
     for epoch in range(n_epochs):
@@ -246,27 +251,26 @@ def objective(args):
             test_cost += cost / n_batches_test
             test_acc += accuracy / n_batches_test
 
+        all_cost.append(test_cost)
         all_acc.append(test_acc)
         print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                            timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
-
-        # 過去のエポックのtest_accを上回った時だけモデルの保存
-        if len(all_acc) == 1 or test_acc > max(all_acc):
-            checkpoint(model, optimizer, test_acc*10000)
 
         # costが爆発したときに学習打ち切り
         if test_cost != test_cost or test_cost > 100000:
             print('Stop learning due to the extremely high cost')
             break
 
-        # 直近5epochsのtest_costから学習が進まないときに早期打ち切り
-        if (np.array(all_acc)[-5:] <= test_acc).all():
+        # 直近10epochsのtest_costから学習が進まないときに早期打ち切り
+        if len(all_cost) > 10 and (np.array(all_cost)[-11:-1] <= test_cost).all():
             print('Early stopping observing no learning')
             break
 
-    print('%d回目 max test_acc: %.3f' % (count, max(all_acc)))
-    print(args)
-    print('--------------------------------------------------------')
+        # 過去のエポックのtest_accを上回った時だけモデルの保存
+        if len(all_acc) == 1 or test_acc > max(all_acc):
+            checkpoint(model, optimizer, test_acc*10000)
+
+    print('max test_acc: %.3f' % max(all_acc))
 
     # test_accの最大値をhyperoptに評価させる
     return max(all_acc)
