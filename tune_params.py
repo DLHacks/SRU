@@ -28,6 +28,8 @@ parser.add_argument('--iter', type=int, default=50,
                      help='select num of hyperopt iteration')
 parser.add_argument('--epochs-per-iter', type=int, default=100,
                      help='select num of epochs for each iteration')
+parser.add_argument('--batch-size', type=int, default=512,
+                     help='set batch_size, default: 512')
 parser.add_argument('--seed', type=int, default=0,
                      help='set random seed')
 parser.add_argument('--devise-id', type=int, default=0,
@@ -39,15 +41,15 @@ model_name = args.model
 gpu        = args.gpu
 iteration  = args.iter
 n_epochs   = args.epochs_per_iter
+batch_size = args.batch_size
 seed       = args.seed
 devise_id  = args.devise_id
 mode       = args.mode
 
 if gpu == True:
-    torch.cuda.manual_seed(seed)
     torch.cuda.set_device(devise_id)
-else:
-    torch.manual_seed(seed)
+# nn.initの初期値はtorch.cuda.manual_seedでなくtorch.manual_seedで管理
+torch.manual_seed(seed)
 dir_path = './trained_models/%s_%s' % (model_name, mode)
 count = 0
 print('Bayesian optimization of %s starts' % model_name)
@@ -100,7 +102,6 @@ def timeSince(since):
 
 # batchあたりの訓練
 def train(model, inputs, labels, optimizer, criterion, clip):
-    batch_size = inputs.size(1)
     model.initHidden(batch_size) # 隠れ変数の初期化
     optimizer.zero_grad() # 勾配の初期化
     outputs = model(inputs)
@@ -113,7 +114,6 @@ def train(model, inputs, labels, optimizer, criterion, clip):
 
 # 検証
 def test(model, inputs, labels, optimizer, criterion):
-    batch_size = inputs.size(1)
     model.initHidden(batch_size)
     outputs = model(inputs)
     loss = criterion(outputs, labels)
@@ -211,11 +211,11 @@ def objective(args):
 
 
     ''' 訓練 '''
-    batch_size = 512
     n_batches = train_X.shape[0]//batch_size
     n_batches_test = test_X.shape[0]//batch_size
     all_cost, all_acc = [], []
     start_time = time.time()
+    stop_count = 0
 
     for epoch in range(n_epochs):
         train_cost, test_cost, train_acc, test_acc  = 0, 0, 0, 0
@@ -261,8 +261,12 @@ def objective(args):
             print('Stop learning due to the extremely high cost')
             break
 
-        # 直近10epochsのtest_costから学習が進まないときに早期打ち切り
-        if len(all_cost) > 10 and (np.array(all_cost)[-11:-1] <= test_cost).all():
+        # 5epochs連続でtest_costの減少が見られないとき早期打ち切り
+        if len(all_cost) > 1 and all_cost[-1] >= all_cost[-2]:
+            stop_count += 1
+        else:
+            stop_count = 0
+        if stop_count == 5:
             print('Early stopping observing no learning')
             break
 
