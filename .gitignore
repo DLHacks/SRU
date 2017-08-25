@@ -3,7 +3,7 @@
 /mnist
 __*
 *.log
-.ipynb*
+.ipynb_checkpoints
 /logs
 /sandbox
-/trained_models/ipynb/*
+/trained_models/*/*
