@@ -113,7 +113,7 @@ def train(model, inputs, labels, optimizer, criterion, clip):
     return loss.data[0], acc
 
 # 検証
-def test(model, inputs, labels, optimizer, criterion):
+def test(model, inputs, labels, criterion):
     model.initHidden(batch_size)
     outputs = model(inputs)
     loss = criterion(outputs, labels)
@@ -247,7 +247,7 @@ def objective(args):
                              ), Variable(torch.from_numpy(labels))
             if gpu == True:
                 inputs, labels = inputs.cuda(), labels.cuda()
-            cost, accuracy = test(model, inputs, labels, optimizer, criterion)
+            cost, accuracy = test(model, inputs, labels, criterion)
             test_cost += cost / n_batches_test
             test_acc += accuracy / n_batches_test
 
