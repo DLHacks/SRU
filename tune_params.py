@@ -251,28 +251,31 @@ def objective(args):
             test_cost += cost / n_batches_test
             test_acc += accuracy / n_batches_test
 
-        all_cost.append(test_cost)
-        all_acc.append(test_acc)
         print('EPOCH:: %i, (%s) train_cost: %.3f, test_cost: %.3f, train_acc: %.3f, test_acc: %.3f' % (epoch + 1,
                            timeSince(start_time), train_cost, test_cost, train_acc, test_acc))
 
         # costが爆発したときに学習打ち切り
         if test_cost != test_cost or test_cost > 100000:
             print('Stop learning due to the extremely high cost')
+            all_acc.append(test_acc)
             break
 
         # 5epochs連続でtest_costの減少が見られないとき早期打ち切り
-        if len(all_cost) > 1 and all_cost[-1] >= all_cost[-2]:
+        if len(all_cost) > 0 and test_cost >= all_cost[-1]:
             stop_count += 1
         else:
             stop_count = 0
         if stop_count == 5:
             print('Early stopping observing no learning')
+            all_acc.append(test_acc)
             break
 
         # 過去のエポックのtest_accを上回った時だけモデルの保存
-        if len(all_acc) == 1 or test_acc > max(all_acc):
+        if len(all_acc) == 0 or test_acc > max(all_acc):
             checkpoint(model, optimizer, test_acc*10000)
+
+        all_cost.append(test_cost)
+        all_acc.append(test_acc)
 
     print('max test_acc: %.3f' % max(all_acc))
 
