@@ -109,7 +109,7 @@ def train(model, inputs, labels, optimizer, criterion, clip):
     torch.nn.utils.clip_grad_norm(model.parameters(), clip) # gradient clipping
     loss.backward()
     optimizer.step()
-    acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
+    acc = (torch.max(outputs, 1)[1] == labels).float().sum().data[0] / batch_size # byteTensor（最大200）からfloatTensorへ変換することに注意
     return loss.data[0], acc
 
 # 検証
@@ -117,7 +117,7 @@ def test(model, inputs, labels, criterion):
     model.initHidden(batch_size)
     outputs = model(inputs)
     loss = criterion(outputs, labels)
-    acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
+    acc = (torch.max(outputs, 1)[1] == labels).float().sum().data[0] / batch_size
     return loss.data[0], acc
 
 # モデルの保存
