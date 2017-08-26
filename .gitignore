@@ -5,10 +5,4 @@ __*
 *.log
 .ipynb_checkpoints
 /sandbox
-/trained_models/sru_limited/*
-/trained_models/gru_limited/*
-/trained_models/lstm_limited/*
-/trained_models/sru_full/*
-/trained_models/gru_full/*
-/trained_models/lstm_full/*
-/trained_models/ipynb/*
+/trained_models/*

@@ -285,4 +285,3 @@ def objective(args):
 best = fmin(objective, parameter_space, algo=tpe.suggest, max_evals=iteration,
             rstate=np.random.RandomState(seed))
 print(best)
-
