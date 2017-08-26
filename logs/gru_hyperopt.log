@@ -1,0 +1,744 @@
+Bayesian optimization of gru starts
+-------------------------------------------------------------------
+1回目
+{'weight_decay': 0.0003000320019508965, 'clip': 7.070732643474399, 'l_rate': 0.04315845980687884, 'dropout': 0.9855760506615988}
+EPOCH:: 1, (2m 2s) train_cost: 4.387, test_cost: 2.326, train_acc: 0.101, test_acc: 0.101
+EPOCH:: 2, (4m 20s) train_cost: 3.824, test_cost: 2.328, train_acc: 0.102, test_acc: 0.110
+EPOCH:: 3, (6m 40s) train_cost: 3.776, test_cost: 2.382, train_acc: 0.100, test_acc: 0.097
+EPOCH:: 4, (8m 59s) train_cost: 3.747, test_cost: 2.365, train_acc: 0.098, test_acc: 0.103
+EPOCH:: 5, (11m 18s) train_cost: 3.699, test_cost: 2.333, train_acc: 0.101, test_acc: 0.103
+EPOCH:: 6, (13m 37s) train_cost: 3.634, test_cost: 2.344, train_acc: 0.102, test_acc: 0.110
+EPOCH:: 7, (15m 55s) train_cost: 3.632, test_cost: 2.340, train_acc: 0.102, test_acc: 0.101
+EPOCH:: 8, (18m 14s) train_cost: 3.580, test_cost: 2.342, train_acc: 0.102, test_acc: 0.103
+EPOCH:: 9, (20m 34s) train_cost: 3.536, test_cost: 2.332, train_acc: 0.100, test_acc: 0.103
+EPOCH:: 10, (22m 53s) train_cost: 3.448, test_cost: 2.319, train_acc: 0.103, test_acc: 0.097
+EPOCH:: 11, (25m 11s) train_cost: 3.404, test_cost: 2.306, train_acc: 0.101, test_acc: 0.088
+EPOCH:: 12, (27m 30s) train_cost: 3.272, test_cost: 2.316, train_acc: 0.105, test_acc: 0.105
+EPOCH:: 13, (29m 49s) train_cost: 3.103, test_cost: 2.315, train_acc: 0.109, test_acc: 0.109
+EPOCH:: 14, (32m 8s) train_cost: 3.009, test_cost: 2.267, train_acc: 0.110, test_acc: 0.163
+EPOCH:: 15, (34m 27s) train_cost: 2.938, test_cost: 2.272, train_acc: 0.113, test_acc: 0.139
+EPOCH:: 16, (36m 44s) train_cost: 2.799, test_cost: 2.228, train_acc: 0.117, test_acc: 0.229
+EPOCH:: 17, (39m 3s) train_cost: 2.727, test_cost: 2.241, train_acc: 0.125, test_acc: 0.110
+EPOCH:: 18, (41m 22s) train_cost: 2.695, test_cost: 2.176, train_acc: 0.130, test_acc: 0.160
+EPOCH:: 19, (43m 43s) train_cost: 2.613, test_cost: 2.159, train_acc: 0.136, test_acc: 0.231
+EPOCH:: 20, (46m 4s) train_cost: 2.434, test_cost: 1.937, train_acc: 0.158, test_acc: 0.308
+EPOCH:: 21, (48m 24s) train_cost: 2.556, test_cost: 2.173, train_acc: 0.125, test_acc: 0.206
+EPOCH:: 22, (50m 43s) train_cost: 2.383, test_cost: 1.920, train_acc: 0.163, test_acc: 0.371
+EPOCH:: 23, (53m 2s) train_cost: 3.459, test_cost: 2.261, train_acc: 0.119, test_acc: 0.176
+EPOCH:: 24, (55m 22s) train_cost: 2.617, test_cost: 2.142, train_acc: 0.118, test_acc: 0.199
+EPOCH:: 25, (57m 41s) train_cost: 2.617, test_cost: 2.220, train_acc: 0.118, test_acc: 0.225
+EPOCH:: 26, (59m 59s) train_cost: 2.470, test_cost: 2.065, train_acc: 0.131, test_acc: 0.198
+EPOCH:: 27, (62m 19s) train_cost: 2.360, test_cost: 1.905, train_acc: 0.155, test_acc: 0.314
+EPOCH:: 28, (64m 39s) train_cost: 2.532, test_cost: 2.180, train_acc: 0.124, test_acc: 0.199
+EPOCH:: 29, (66m 58s) train_cost: 2.445, test_cost: 2.054, train_acc: 0.137, test_acc: 0.238
+EPOCH:: 30, (69m 15s) train_cost: 2.377, test_cost: 1.914, train_acc: 0.153, test_acc: 0.252
+EPOCH:: 31, (71m 34s) train_cost: 2.350, test_cost: 1.920, train_acc: 0.167, test_acc: 0.286
+EPOCH:: 32, (73m 53s) train_cost: 2.238, test_cost: 1.725, train_acc: 0.184, test_acc: 0.363
+EPOCH:: 33, (76m 12s) train_cost: 2.211, test_cost: 1.653, train_acc: 0.193, test_acc: 0.352
+EPOCH:: 34, (78m 31s) train_cost: 4.335, test_cost: 2.058, train_acc: 0.181, test_acc: 0.232
+EPOCH:: 35, (80m 49s) train_cost: 6.051, test_cost: 2.020, train_acc: 0.123, test_acc: 0.230
+EPOCH:: 36, (83m 7s) train_cost: 4.545, test_cost: 2.016, train_acc: 0.126, test_acc: 0.232
+EPOCH:: 37, (85m 26s) train_cost: 5.360, test_cost: 2.049, train_acc: 0.117, test_acc: 0.245
+EPOCH:: 38, (87m 45s) train_cost: 5.094, test_cost: 2.132, train_acc: 0.119, test_acc: 0.201
+EPOCH:: 39, (90m 4s) train_cost: 4.755, test_cost: 2.111, train_acc: 0.120, test_acc: 0.175
+EPOCH:: 40, (92m 24s) train_cost: 4.572, test_cost: 2.077, train_acc: 0.119, test_acc: 0.212
+EPOCH:: 41, (94m 42s) train_cost: 4.517, test_cost: 2.068, train_acc: 0.118, test_acc: 0.221
+EPOCH:: 42, (97m 1s) train_cost: 4.489, test_cost: 2.136, train_acc: 0.118, test_acc: 0.151
+EPOCH:: 43, (99m 20s) train_cost: 4.461, test_cost: 2.093, train_acc: 0.119, test_acc: 0.222
+EPOCH:: 44, (101m 37s) train_cost: 4.435, test_cost: 2.095, train_acc: 0.119, test_acc: 0.226
+EPOCH:: 45, (103m 52s) train_cost: 4.457, test_cost: 2.099, train_acc: 0.120, test_acc: 0.187
+EPOCH:: 46, (106m 9s) train_cost: 4.439, test_cost: 2.120, train_acc: 0.119, test_acc: 0.222
+EPOCH:: 47, (108m 26s) train_cost: 4.399, test_cost: 2.099, train_acc: 0.118, test_acc: 0.201
+EPOCH:: 48, (110m 45s) train_cost: 4.402, test_cost: 2.108, train_acc: 0.120, test_acc: 0.199
+EPOCH:: 49, (113m 3s) train_cost: 4.459, test_cost: 2.085, train_acc: 0.117, test_acc: 0.192
+EPOCH:: 50, (115m 21s) train_cost: 4.442, test_cost: 2.039, train_acc: 0.118, test_acc: 0.251
+max test_acc: 0.371
+-------------------------------------------------------------------
+2回目
+{'weight_decay': 0.00042975869535659026, 'clip': 643.421101235567, 'l_rate': 0.039195046254461734, 'dropout': 0.6227097526294368}
+EPOCH:: 1, (2m 14s) train_cost: 2.461, test_cost: 2.318, train_acc: 0.142, test_acc: 0.134
+EPOCH:: 2, (4m 32s) train_cost: 2.328, test_cost: 2.324, train_acc: 0.169, test_acc: 0.144
+EPOCH:: 3, (6m 52s) train_cost: 2.229, test_cost: 2.202, train_acc: 0.189, test_acc: 0.171
+EPOCH:: 4, (9m 12s) train_cost: 2.180, test_cost: 1.766, train_acc: 0.213, test_acc: 0.288
+EPOCH:: 5, (11m 33s) train_cost: nan, test_cost: nan, train_acc: 0.165, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.288
+-------------------------------------------------------------------
+3回目
+{'weight_decay': 4.854464324042382e-05, 'clip': 400.7829030202745, 'l_rate': 0.8098036924111182, 'dropout': 0.9084383736699743}
+EPOCH:: 1, (2m 22s) train_cost: nan, test_cost: nan, train_acc: 0.113, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.110
+-------------------------------------------------------------------
+4回目
+{'weight_decay': 0.0004220165345083618, 'clip': 6.784607340052615, 'l_rate': 8.100322712268231e-05, 'dropout': 0.34228344916469844}
+EPOCH:: 1, (2m 22s) train_cost: 2.302, test_cost: 2.301, train_acc: 0.108, test_acc: 0.110
+EPOCH:: 2, (4m 43s) train_cost: 2.300, test_cost: 2.286, train_acc: 0.119, test_acc: 0.200
+EPOCH:: 3, (7m 4s) train_cost: 1.985, test_cost: 1.714, train_acc: 0.251, test_acc: 0.354
+EPOCH:: 4, (9m 19s) train_cost: 1.672, test_cost: 1.592, train_acc: 0.333, test_acc: 0.401
+EPOCH:: 5, (11m 24s) train_cost: 1.601, test_cost: 1.535, train_acc: 0.367, test_acc: 0.417
+EPOCH:: 6, (13m 39s) train_cost: 1.541, test_cost: 1.474, train_acc: 0.395, test_acc: 0.429
+EPOCH:: 7, (16m 2s) train_cost: 1.450, test_cost: 1.380, train_acc: 0.432, test_acc: 0.464
+EPOCH:: 8, (18m 25s) train_cost: 1.389, test_cost: 1.342, train_acc: 0.458, test_acc: 0.484
+EPOCH:: 9, (20m 48s) train_cost: 1.357, test_cost: 1.329, train_acc: 0.476, test_acc: 0.490
+EPOCH:: 10, (23m 11s) train_cost: 1.332, test_cost: 1.336, train_acc: 0.489, test_acc: 0.497
+EPOCH:: 11, (25m 34s) train_cost: 1.293, test_cost: 1.245, train_acc: 0.503, test_acc: 0.523
+EPOCH:: 12, (27m 57s) train_cost: 1.244, test_cost: 1.197, train_acc: 0.530, test_acc: 0.559
+EPOCH:: 13, (30m 20s) train_cost: 1.205, test_cost: 1.150, train_acc: 0.559, test_acc: 0.599
+EPOCH:: 14, (32m 43s) train_cost: 1.520, test_cost: 2.301, train_acc: 0.509, test_acc: 0.250
+EPOCH:: 15, (35m 7s) train_cost: 1.831, test_cost: 1.615, train_acc: 0.347, test_acc: 0.408
+EPOCH:: 16, (37m 29s) train_cost: 1.597, test_cost: 1.505, train_acc: 0.419, test_acc: 0.465
+EPOCH:: 17, (39m 50s) train_cost: 1.513, test_cost: 1.439, train_acc: 0.454, test_acc: 0.490
+EPOCH:: 18, (42m 10s) train_cost: 1.480, test_cost: 1.398, train_acc: 0.462, test_acc: 0.498
+EPOCH:: 19, (44m 30s) train_cost: 1.525, test_cost: 1.402, train_acc: 0.447, test_acc: 0.504
+EPOCH:: 20, (46m 46s) train_cost: 1.405, test_cost: 1.337, train_acc: 0.491, test_acc: 0.515
+EPOCH:: 21, (49m 3s) train_cost: 1.361, test_cost: 1.405, train_acc: 0.505, test_acc: 0.490
+EPOCH:: 22, (51m 19s) train_cost: 1.332, test_cost: 1.280, train_acc: 0.518, test_acc: 0.544
+EPOCH:: 23, (53m 39s) train_cost: 1.292, test_cost: 1.249, train_acc: 0.537, test_acc: 0.558
+EPOCH:: 24, (55m 56s) train_cost: 1.256, test_cost: 1.198, train_acc: 0.553, test_acc: 0.581
+EPOCH:: 25, (58m 11s) train_cost: 1.213, test_cost: 1.179, train_acc: 0.575, test_acc: 0.592
+EPOCH:: 26, (60m 26s) train_cost: 1.195, test_cost: 1.154, train_acc: 0.581, test_acc: 0.601
+EPOCH:: 27, (62m 43s) train_cost: 1.167, test_cost: 1.142, train_acc: 0.595, test_acc: 0.613
+EPOCH:: 28, (65m 4s) train_cost: 1.152, test_cost: 1.162, train_acc: 0.600, test_acc: 0.607
+EPOCH:: 29, (67m 25s) train_cost: 1.140, test_cost: 1.114, train_acc: 0.602, test_acc: 0.614
+EPOCH:: 30, (69m 46s) train_cost: 1.123, test_cost: 1.093, train_acc: 0.609, test_acc: 0.625
+EPOCH:: 31, (72m 6s) train_cost: 1.109, test_cost: 1.096, train_acc: 0.613, test_acc: 0.622
+EPOCH:: 32, (74m 27s) train_cost: 1.088, test_cost: 1.072, train_acc: 0.622, test_acc: 0.639
+EPOCH:: 33, (76m 48s) train_cost: 1.101, test_cost: 1.072, train_acc: 0.621, test_acc: 0.635
+EPOCH:: 34, (79m 8s) train_cost: 1.067, test_cost: 1.044, train_acc: 0.631, test_acc: 0.641
+EPOCH:: 35, (81m 29s) train_cost: 1.061, test_cost: 1.032, train_acc: 0.634, test_acc: 0.649
+EPOCH:: 36, (83m 49s) train_cost: 1.051, test_cost: 1.041, train_acc: 0.639, test_acc: 0.645
+EPOCH:: 37, (86m 10s) train_cost: 1.037, test_cost: 1.022, train_acc: 0.645, test_acc: 0.660
+EPOCH:: 38, (88m 31s) train_cost: 1.035, test_cost: 1.010, train_acc: 0.644, test_acc: 0.660
+EPOCH:: 39, (90m 47s) train_cost: 1.024, test_cost: 0.988, train_acc: 0.651, test_acc: 0.670
+EPOCH:: 40, (93m 3s) train_cost: 1.011, test_cost: 0.980, train_acc: 0.654, test_acc: 0.672
+EPOCH:: 41, (95m 17s) train_cost: 1.004, test_cost: 0.988, train_acc: 0.658, test_acc: 0.669
+EPOCH:: 42, (97m 35s) train_cost: 1.010, test_cost: 1.005, train_acc: 0.655, test_acc: 0.663
+EPOCH:: 43, (99m 56s) train_cost: 1.015, test_cost: 0.968, train_acc: 0.654, test_acc: 0.673
+EPOCH:: 44, (102m 16s) train_cost: 0.981, test_cost: 0.955, train_acc: 0.665, test_acc: 0.680
+EPOCH:: 45, (104m 37s) train_cost: 0.981, test_cost: 0.952, train_acc: 0.665, test_acc: 0.683
+EPOCH:: 46, (106m 57s) train_cost: 0.979, test_cost: 0.991, train_acc: 0.667, test_acc: 0.667
+EPOCH:: 47, (109m 18s) train_cost: 0.973, test_cost: 0.953, train_acc: 0.669, test_acc: 0.681
+EPOCH:: 48, (111m 40s) train_cost: 0.970, test_cost: 0.942, train_acc: 0.669, test_acc: 0.681
+EPOCH:: 49, (114m 2s) train_cost: 0.959, test_cost: 0.982, train_acc: 0.674, test_acc: 0.664
+EPOCH:: 50, (116m 22s) train_cost: 0.955, test_cost: 1.043, train_acc: 0.675, test_acc: 0.644
+max test_acc: 0.683
+-------------------------------------------------------------------
+5回目
+{'weight_decay': 1.998274304973687e-05, 'clip': 94.68486494025987, 'l_rate': 0.1144820435393437, 'dropout': 0.46994404036291704}
+EPOCH:: 1, (2m 21s) train_cost: nan, test_cost: nan, train_acc: 0.113, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.110
+-------------------------------------------------------------------
+6回目
+{'weight_decay': 3.9473232493735065e-05, 'clip': 17.380962431598327, 'l_rate': 0.0005174277555790016, 'dropout': 0.7281811891811246}
+EPOCH:: 1, (2m 21s) train_cost: 2.224, test_cost: 1.926, train_acc: 0.151, test_acc: 0.233
+EPOCH:: 2, (4m 42s) train_cost: 1.983, test_cost: 1.718, train_acc: 0.231, test_acc: 0.304
+EPOCH:: 3, (6m 57s) train_cost: 1.554, test_cost: 1.378, train_acc: 0.383, test_acc: 0.466
+EPOCH:: 4, (9m 11s) train_cost: 1.332, test_cost: 1.190, train_acc: 0.489, test_acc: 0.569
+EPOCH:: 5, (11m 24s) train_cost: 1.410, test_cost: 1.041, train_acc: 0.499, test_acc: 0.619
+EPOCH:: 6, (13m 41s) train_cost: 0.852, test_cost: 0.598, train_acc: 0.697, test_acc: 0.792
+EPOCH:: 7, (16m 3s) train_cost: 0.623, test_cost: 0.542, train_acc: 0.779, test_acc: 0.809
+EPOCH:: 8, (18m 22s) train_cost: 0.518, test_cost: 0.469, train_acc: 0.816, test_acc: 0.836
+EPOCH:: 9, (20m 43s) train_cost: 0.463, test_cost: 0.369, train_acc: 0.837, test_acc: 0.867
+EPOCH:: 10, (23m 3s) train_cost: 0.401, test_cost: 0.347, train_acc: 0.858, test_acc: 0.883
+EPOCH:: 11, (25m 25s) train_cost: 0.367, test_cost: 0.312, train_acc: 0.875, test_acc: 0.891
+EPOCH:: 12, (27m 43s) train_cost: 0.339, test_cost: 0.295, train_acc: 0.890, test_acc: 0.901
+EPOCH:: 13, (30m 4s) train_cost: 0.309, test_cost: 0.274, train_acc: 0.901, test_acc: 0.912
+EPOCH:: 14, (32m 25s) train_cost: 0.304, test_cost: 0.274, train_acc: 0.902, test_acc: 0.908
+EPOCH:: 15, (34m 43s) train_cost: 0.278, test_cost: 0.233, train_acc: 0.910, test_acc: 0.920
+EPOCH:: 16, (37m 3s) train_cost: 0.261, test_cost: 0.238, train_acc: 0.915, test_acc: 0.920
+EPOCH:: 17, (39m 21s) train_cost: 0.247, test_cost: 0.238, train_acc: 0.921, test_acc: 0.922
+EPOCH:: 18, (41m 38s) train_cost: 0.239, test_cost: 0.214, train_acc: 0.924, test_acc: 0.928
+EPOCH:: 19, (43m 53s) train_cost: 0.225, test_cost: 0.196, train_acc: 0.926, test_acc: 0.935
+EPOCH:: 20, (46m 6s) train_cost: 0.216, test_cost: 0.205, train_acc: 0.931, test_acc: 0.932
+EPOCH:: 21, (48m 24s) train_cost: 0.208, test_cost: 0.194, train_acc: 0.934, test_acc: 0.935
+EPOCH:: 22, (50m 46s) train_cost: 0.200, test_cost: 0.173, train_acc: 0.936, test_acc: 0.944
+EPOCH:: 23, (53m 8s) train_cost: 0.188, test_cost: 0.182, train_acc: 0.941, test_acc: 0.942
+EPOCH:: 24, (55m 27s) train_cost: 0.177, test_cost: 0.176, train_acc: 0.945, test_acc: 0.942
+EPOCH:: 25, (57m 46s) train_cost: 0.171, test_cost: 0.150, train_acc: 0.946, test_acc: 0.950
+EPOCH:: 26, (60m 6s) train_cost: 0.162, test_cost: 0.140, train_acc: 0.949, test_acc: 0.954
+EPOCH:: 27, (62m 22s) train_cost: 0.158, test_cost: 0.149, train_acc: 0.949, test_acc: 0.948
+EPOCH:: 28, (64m 41s) train_cost: 0.151, test_cost: 0.158, train_acc: 0.952, test_acc: 0.946
+EPOCH:: 29, (66m 59s) train_cost: 0.145, test_cost: 0.160, train_acc: 0.954, test_acc: 0.948
+EPOCH:: 30, (69m 12s) train_cost: 0.140, test_cost: 0.132, train_acc: 0.956, test_acc: 0.957
+EPOCH:: 31, (71m 32s) train_cost: 0.133, test_cost: 0.147, train_acc: 0.958, test_acc: 0.956
+EPOCH:: 32, (73m 52s) train_cost: 0.132, test_cost: 0.145, train_acc: 0.959, test_acc: 0.951
+EPOCH:: 33, (76m 10s) train_cost: 0.127, test_cost: 0.136, train_acc: 0.960, test_acc: 0.956
+EPOCH:: 34, (78m 29s) train_cost: 0.121, test_cost: 0.137, train_acc: 0.961, test_acc: 0.956
+EPOCH:: 35, (80m 47s) train_cost: 0.116, test_cost: 0.121, train_acc: 0.963, test_acc: 0.961
+EPOCH:: 36, (83m 8s) train_cost: 0.115, test_cost: 0.125, train_acc: 0.964, test_acc: 0.960
+EPOCH:: 37, (85m 27s) train_cost: 0.112, test_cost: 0.118, train_acc: 0.964, test_acc: 0.961
+EPOCH:: 38, (87m 45s) train_cost: 0.108, test_cost: 0.119, train_acc: 0.966, test_acc: 0.960
+EPOCH:: 39, (90m 1s) train_cost: 0.105, test_cost: 0.109, train_acc: 0.967, test_acc: 0.963
+EPOCH:: 40, (92m 19s) train_cost: 0.100, test_cost: 0.113, train_acc: 0.969, test_acc: 0.965
+EPOCH:: 41, (94m 38s) train_cost: 0.100, test_cost: 0.115, train_acc: 0.969, test_acc: 0.964
+EPOCH:: 42, (96m 58s) train_cost: 0.095, test_cost: 0.111, train_acc: 0.970, test_acc: 0.964
+EPOCH:: 43, (99m 18s) train_cost: 0.093, test_cost: 0.121, train_acc: 0.970, test_acc: 0.964
+EPOCH:: 44, (101m 41s) train_cost: 0.089, test_cost: 0.108, train_acc: 0.973, test_acc: 0.966
+EPOCH:: 45, (103m 59s) train_cost: 0.084, test_cost: 0.114, train_acc: 0.974, test_acc: 0.966
+EPOCH:: 46, (106m 13s) train_cost: 0.082, test_cost: 0.101, train_acc: 0.974, test_acc: 0.966
+EPOCH:: 47, (108m 27s) train_cost: 0.080, test_cost: 0.108, train_acc: 0.975, test_acc: 0.967
+EPOCH:: 48, (110m 41s) train_cost: 0.078, test_cost: 0.103, train_acc: 0.976, test_acc: 0.969
+EPOCH:: 49, (113m 2s) train_cost: 0.077, test_cost: 0.110, train_acc: 0.976, test_acc: 0.968
+EPOCH:: 50, (115m 24s) train_cost: 0.075, test_cost: 0.100, train_acc: 0.977, test_acc: 0.970
+max test_acc: 0.970
+-------------------------------------------------------------------
+7回目
+{'weight_decay': 0.005018275452923839, 'clip': 129.24745005133934, 'l_rate': 0.9159811793584357, 'dropout': 0.7334067033728837}
+EPOCH:: 1, (2m 21s) train_cost: nan, test_cost: nan, train_acc: 0.113, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.110
+-------------------------------------------------------------------
+8回目
+{'weight_decay': 0.014080700178167906, 'clip': 6.314145141745589, 'l_rate': 0.08764410381062808, 'dropout': 0.4268824866535219}
+EPOCH:: 1, (2m 22s) train_cost: nan, test_cost: nan, train_acc: 0.113, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.110
+-------------------------------------------------------------------
+9回目
+{'weight_decay': 0.00036482687621163537, 'clip': 1.3138340431830906, 'l_rate': 0.008824620438849533, 'dropout': 0.7217773579860346}
+EPOCH:: 1, (2m 21s) train_cost: 2.317, test_cost: 2.302, train_acc: 0.105, test_acc: 0.105
+EPOCH:: 2, (4m 43s) train_cost: 2.307, test_cost: 2.304, train_acc: 0.104, test_acc: 0.110
+EPOCH:: 3, (7m 4s) train_cost: 2.378, test_cost: 2.320, train_acc: 0.108, test_acc: 0.100
+EPOCH:: 4, (9m 23s) train_cost: 2.338, test_cost: 2.059, train_acc: 0.121, test_acc: 0.212
+EPOCH:: 5, (11m 47s) train_cost: 1.774, test_cost: 1.104, train_acc: 0.318, test_acc: 0.610
+EPOCH:: 6, (14m 10s) train_cost: 1.003, test_cost: 0.464, train_acc: 0.649, test_acc: 0.845
+EPOCH:: 7, (16m 31s) train_cost: 0.602, test_cost: 0.410, train_acc: 0.802, test_acc: 0.847
+EPOCH:: 8, (18m 54s) train_cost: 0.479, test_cost: 0.337, train_acc: 0.848, test_acc: 0.884
+EPOCH:: 9, (21m 18s) train_cost: 0.414, test_cost: 0.319, train_acc: 0.874, test_acc: 0.895
+EPOCH:: 10, (23m 42s) train_cost: 0.366, test_cost: 0.272, train_acc: 0.889, test_acc: 0.915
+EPOCH:: 11, (25m 58s) train_cost: 0.345, test_cost: 0.364, train_acc: 0.893, test_acc: 0.894
+EPOCH:: 12, (28m 16s) train_cost: 0.324, test_cost: 0.301, train_acc: 0.901, test_acc: 0.912
+EPOCH:: 13, (30m 34s) train_cost: 0.414, test_cost: 0.278, train_acc: 0.868, test_acc: 0.913
+EPOCH:: 14, (32m 57s) train_cost: 1.016, test_cost: 0.924, train_acc: 0.652, test_acc: 0.664
+EPOCH:: 15, (35m 18s) train_cost: 0.695, test_cost: 0.333, train_acc: 0.757, test_acc: 0.891
+EPOCH:: 16, (37m 35s) train_cost: 0.394, test_cost: 0.262, train_acc: 0.878, test_acc: 0.916
+EPOCH:: 17, (40m 1s) train_cost: 0.338, test_cost: 0.235, train_acc: 0.897, test_acc: 0.922
+EPOCH:: 18, (42m 27s) train_cost: 0.324, test_cost: 0.242, train_acc: 0.901, test_acc: 0.918
+EPOCH:: 19, (44m 53s) train_cost: 0.304, test_cost: 0.258, train_acc: 0.908, test_acc: 0.917
+EPOCH:: 20, (47m 17s) train_cost: 0.298, test_cost: 0.238, train_acc: 0.910, test_acc: 0.919
+EPOCH:: 21, (49m 42s) train_cost: 0.285, test_cost: 0.216, train_acc: 0.914, test_acc: 0.929
+EPOCH:: 22, (52m 7s) train_cost: 0.286, test_cost: 0.222, train_acc: 0.914, test_acc: 0.925
+EPOCH:: 23, (54m 33s) train_cost: 0.281, test_cost: 0.197, train_acc: 0.917, test_acc: 0.938
+EPOCH:: 24, (56m 58s) train_cost: 2.285, test_cost: 2.294, train_acc: 0.274, test_acc: 0.120
+EPOCH:: 25, (59m 23s) train_cost: 2.403, test_cost: 2.242, train_acc: 0.130, test_acc: 0.176
+EPOCH:: 26, (61m 47s) train_cost: 2.368, test_cost: 2.237, train_acc: 0.137, test_acc: 0.171
+EPOCH:: 27, (64m 11s) train_cost: 2.340, test_cost: 2.216, train_acc: 0.144, test_acc: 0.191
+EPOCH:: 28, (66m 34s) train_cost: 2.329, test_cost: 2.216, train_acc: 0.151, test_acc: 0.152
+EPOCH:: 29, (68m 58s) train_cost: 2.301, test_cost: 2.163, train_acc: 0.154, test_acc: 0.238
+EPOCH:: 30, (71m 20s) train_cost: 2.281, test_cost: 2.165, train_acc: 0.165, test_acc: 0.184
+EPOCH:: 31, (73m 43s) train_cost: 2.265, test_cost: 2.135, train_acc: 0.170, test_acc: 0.183
+EPOCH:: 32, (76m 3s) train_cost: 2.243, test_cost: 2.119, train_acc: 0.178, test_acc: 0.229
+EPOCH:: 33, (78m 24s) train_cost: 2.235, test_cost: 2.101, train_acc: 0.186, test_acc: 0.244
+EPOCH:: 34, (80m 40s) train_cost: 2.207, test_cost: 2.109, train_acc: 0.194, test_acc: 0.198
+EPOCH:: 35, (82m 57s) train_cost: 2.181, test_cost: 2.022, train_acc: 0.205, test_acc: 0.271
+EPOCH:: 36, (85m 19s) train_cost: 2.158, test_cost: 2.000, train_acc: 0.210, test_acc: 0.270
+EPOCH:: 37, (87m 41s) train_cost: 2.131, test_cost: 1.965, train_acc: 0.221, test_acc: 0.281
+EPOCH:: 38, (90m 5s) train_cost: 2.069, test_cost: 1.794, train_acc: 0.237, test_acc: 0.382
+EPOCH:: 39, (92m 28s) train_cost: 1.898, test_cost: 1.493, train_acc: 0.294, test_acc: 0.493
+EPOCH:: 40, (94m 51s) train_cost: 1.710, test_cost: 1.312, train_acc: 0.359, test_acc: 0.567
+EPOCH:: 41, (97m 14s) train_cost: 1.604, test_cost: 1.261, train_acc: 0.399, test_acc: 0.549
+EPOCH:: 42, (99m 36s) train_cost: 1.532, test_cost: 1.150, train_acc: 0.426, test_acc: 0.637
+EPOCH:: 43, (101m 58s) train_cost: 1.453, test_cost: 1.008, train_acc: 0.457, test_acc: 0.695
+EPOCH:: 44, (104m 20s) train_cost: 1.384, test_cost: 0.939, train_acc: 0.482, test_acc: 0.696
+EPOCH:: 45, (106m 42s) train_cost: 1.345, test_cost: 0.946, train_acc: 0.496, test_acc: 0.660
+EPOCH:: 46, (109m 5s) train_cost: 1.305, test_cost: 1.018, train_acc: 0.515, test_acc: 0.638
+EPOCH:: 47, (111m 27s) train_cost: 1.252, test_cost: 0.820, train_acc: 0.536, test_acc: 0.716
+EPOCH:: 48, (113m 44s) train_cost: 1.187, test_cost: 0.766, train_acc: 0.561, test_acc: 0.718
+EPOCH:: 49, (116m 0s) train_cost: 1.124, test_cost: 0.722, train_acc: 0.588, test_acc: 0.756
+EPOCH:: 50, (118m 17s) train_cost: 1.080, test_cost: 0.664, train_acc: 0.609, test_acc: 0.759
+max test_acc: 0.938
+-------------------------------------------------------------------
+10回目
+{'weight_decay': 1.2832057514203078e-05, 'clip': 11320.26690955919, 'l_rate': 0.3540653347584405, 'dropout': 0.7934820460664539}
+EPOCH:: 1, (2m 28s) train_cost: 7.791, test_cost: 3.779, train_acc: 0.101, test_acc: 0.096
+EPOCH:: 2, (4m 53s) train_cost: 7.034, test_cost: 3.552, train_acc: 0.101, test_acc: 0.110
+EPOCH:: 3, (7m 16s) train_cost: 7.001, test_cost: 3.895, train_acc: 0.099, test_acc: 0.103
+EPOCH:: 4, (9m 37s) train_cost: 7.201, test_cost: 3.149, train_acc: 0.103, test_acc: 0.096
+EPOCH:: 5, (11m 56s) train_cost: 7.319, test_cost: 5.359, train_acc: 0.098, test_acc: 0.103
+EPOCH:: 6, (14m 20s) train_cost: 7.332, test_cost: 4.108, train_acc: 0.100, test_acc: 0.094
+EPOCH:: 7, (16m 43s) train_cost: 7.179, test_cost: 4.176, train_acc: 0.101, test_acc: 0.110
+EPOCH:: 8, (19m 5s) train_cost: 7.300, test_cost: 3.423, train_acc: 0.101, test_acc: 0.101
+EPOCH:: 9, (21m 28s) train_cost: 7.221, test_cost: 3.764, train_acc: 0.100, test_acc: 0.103
+EPOCH:: 10, (23m 50s) train_cost: 7.025, test_cost: 4.097, train_acc: 0.100, test_acc: 0.088
+EPOCH:: 11, (26m 13s) train_cost: 7.176, test_cost: 3.394, train_acc: 0.100, test_acc: 0.101
+EPOCH:: 12, (28m 37s) train_cost: 6.831, test_cost: 4.152, train_acc: 0.099, test_acc: 0.100
+EPOCH:: 13, (30m 54s) train_cost: 6.882, test_cost: 3.513, train_acc: 0.098, test_acc: 0.099
+EPOCH:: 14, (33m 10s) train_cost: 7.773, test_cost: 2.832, train_acc: 0.101, test_acc: 0.110
+EPOCH:: 15, (35m 28s) train_cost: 8.449, test_cost: 4.849, train_acc: 0.099, test_acc: 0.110
+EPOCH:: 16, (37m 45s) train_cost: 7.841, test_cost: 5.272, train_acc: 0.099, test_acc: 0.103
+EPOCH:: 17, (40m 8s) train_cost: 7.508, test_cost: 3.543, train_acc: 0.101, test_acc: 0.099
+EPOCH:: 18, (42m 30s) train_cost: 8.221, test_cost: 4.934, train_acc: 0.100, test_acc: 0.097
+EPOCH:: 19, (44m 54s) train_cost: 7.551, test_cost: 3.571, train_acc: 0.102, test_acc: 0.096
+EPOCH:: 20, (47m 17s) train_cost: 7.568, test_cost: 3.574, train_acc: 0.101, test_acc: 0.099
+EPOCH:: 21, (49m 41s) train_cost: 7.582, test_cost: 3.532, train_acc: 0.101, test_acc: 0.105
+EPOCH:: 22, (52m 4s) train_cost: 7.795, test_cost: 6.573, train_acc: 0.097, test_acc: 0.110
+EPOCH:: 23, (54m 28s) train_cost: 7.605, test_cost: 2.871, train_acc: 0.102, test_acc: 0.096
+EPOCH:: 24, (56m 51s) train_cost: 7.672, test_cost: 3.650, train_acc: 0.101, test_acc: 0.103
+EPOCH:: 25, (59m 15s) train_cost: 7.388, test_cost: 4.296, train_acc: 0.102, test_acc: 0.096
+EPOCH:: 26, (61m 38s) train_cost: 7.618, test_cost: 2.820, train_acc: 0.102, test_acc: 0.100
+EPOCH:: 27, (63m 58s) train_cost: 7.461, test_cost: 4.202, train_acc: 0.099, test_acc: 0.105
+EPOCH:: 28, (66m 10s) train_cost: 7.383, test_cost: 3.622, train_acc: 0.101, test_acc: 0.099
+EPOCH:: 29, (68m 26s) train_cost: 7.727, test_cost: 4.183, train_acc: 0.099, test_acc: 0.103
+EPOCH:: 30, (70m 45s) train_cost: 7.878, test_cost: 4.466, train_acc: 0.101, test_acc: 0.099
+EPOCH:: 31, (73m 8s) train_cost: 7.781, test_cost: 3.662, train_acc: 0.100, test_acc: 0.110
+EPOCH:: 32, (75m 32s) train_cost: 7.188, test_cost: 3.223, train_acc: 0.100, test_acc: 0.096
+EPOCH:: 33, (77m 56s) train_cost: 7.738, test_cost: 3.899, train_acc: 0.099, test_acc: 0.103
+EPOCH:: 34, (80m 19s) train_cost: 7.551, test_cost: 3.494, train_acc: 0.100, test_acc: 0.096
+EPOCH:: 35, (82m 42s) train_cost: 7.470, test_cost: 3.204, train_acc: 0.102, test_acc: 0.103
+EPOCH:: 36, (85m 4s) train_cost: 7.691, test_cost: 3.683, train_acc: 0.099, test_acc: 0.100
+EPOCH:: 37, (87m 26s) train_cost: 7.397, test_cost: 4.032, train_acc: 0.100, test_acc: 0.103
+EPOCH:: 38, (89m 47s) train_cost: 7.424, test_cost: 3.050, train_acc: 0.102, test_acc: 0.100
+EPOCH:: 39, (92m 4s) train_cost: 7.446, test_cost: 5.060, train_acc: 0.101, test_acc: 0.103
+EPOCH:: 40, (94m 20s) train_cost: 8.045, test_cost: 3.455, train_acc: 0.099, test_acc: 0.088
+EPOCH:: 41, (96m 42s) train_cost: 7.778, test_cost: 5.048, train_acc: 0.100, test_acc: 0.096
+EPOCH:: 42, (99m 3s) train_cost: 7.415, test_cost: 5.163, train_acc: 0.101, test_acc: 0.103
+EPOCH:: 43, (101m 25s) train_cost: 7.588, test_cost: 4.428, train_acc: 0.099, test_acc: 0.099
+EPOCH:: 44, (103m 44s) train_cost: 7.611, test_cost: 5.345, train_acc: 0.102, test_acc: 0.096
+EPOCH:: 45, (106m 2s) train_cost: 7.638, test_cost: 3.347, train_acc: 0.101, test_acc: 0.097
+EPOCH:: 46, (108m 19s) train_cost: 7.552, test_cost: 3.994, train_acc: 0.101, test_acc: 0.089
+EPOCH:: 47, (110m 36s) train_cost: 7.617, test_cost: 4.337, train_acc: 0.101, test_acc: 0.110
+EPOCH:: 48, (112m 58s) train_cost: 7.377, test_cost: 3.958, train_acc: 0.101, test_acc: 0.103
+EPOCH:: 49, (115m 19s) train_cost: 7.513, test_cost: 4.359, train_acc: 0.101, test_acc: 0.103
+EPOCH:: 50, (117m 40s) train_cost: 7.536, test_cost: 4.003, train_acc: 0.098, test_acc: 0.103
+max test_acc: 0.110
+-------------------------------------------------------------------
+11回目
+{'weight_decay': 0.00011813244108811544, 'clip': 2925.4042227640757, 'l_rate': 0.0037046604805510137, 'dropout': 0.26173877481275953}
+EPOCH:: 1, (2m 21s) train_cost: 2.303, test_cost: 2.302, train_acc: 0.110, test_acc: 0.103
+EPOCH:: 2, (4m 41s) train_cost: 2.293, test_cost: 2.088, train_acc: 0.122, test_acc: 0.190
+EPOCH:: 3, (7m 3s) train_cost: 1.272, test_cost: 0.613, train_acc: 0.505, test_acc: 0.770
+EPOCH:: 4, (9m 25s) train_cost: 0.471, test_cost: 0.322, train_acc: 0.817, test_acc: 0.875
+EPOCH:: 5, (11m 47s) train_cost: 0.308, test_cost: 0.246, train_acc: 0.889, test_acc: 0.919
+EPOCH:: 6, (14m 7s) train_cost: 0.235, test_cost: 0.196, train_acc: 0.922, test_acc: 0.935
+EPOCH:: 7, (16m 29s) train_cost: 0.203, test_cost: 0.190, train_acc: 0.933, test_acc: 0.939
+EPOCH:: 8, (18m 50s) train_cost: 0.183, test_cost: 0.171, train_acc: 0.940, test_acc: 0.943
+EPOCH:: 9, (21m 9s) train_cost: 0.176, test_cost: 0.192, train_acc: 0.942, test_acc: 0.938
+EPOCH:: 10, (23m 27s) train_cost: 0.166, test_cost: 0.172, train_acc: 0.947, test_acc: 0.944
+EPOCH:: 11, (25m 45s) train_cost: 0.152, test_cost: 0.143, train_acc: 0.950, test_acc: 0.953
+EPOCH:: 12, (28m 3s) train_cost: 0.153, test_cost: 0.148, train_acc: 0.950, test_acc: 0.952
+EPOCH:: 13, (30m 25s) train_cost: 0.141, test_cost: 0.133, train_acc: 0.954, test_acc: 0.956
+EPOCH:: 14, (32m 50s) train_cost: 0.139, test_cost: 0.138, train_acc: 0.955, test_acc: 0.955
+EPOCH:: 15, (35m 15s) train_cost: 0.134, test_cost: 0.134, train_acc: 0.957, test_acc: 0.956
+EPOCH:: 16, (37m 39s) train_cost: 0.126, test_cost: 0.144, train_acc: 0.959, test_acc: 0.953
+EPOCH:: 17, (40m 5s) train_cost: 0.121, test_cost: 0.130, train_acc: 0.960, test_acc: 0.958
+EPOCH:: 18, (42m 30s) train_cost: 0.118, test_cost: 0.134, train_acc: 0.962, test_acc: 0.958
+EPOCH:: 19, (44m 53s) train_cost: 0.117, test_cost: 0.126, train_acc: 0.962, test_acc: 0.958
+EPOCH:: 20, (47m 18s) train_cost: 0.110, test_cost: 0.126, train_acc: 0.965, test_acc: 0.961
+EPOCH:: 21, (49m 44s) train_cost: 0.108, test_cost: 0.107, train_acc: 0.965, test_acc: 0.965
+EPOCH:: 22, (52m 8s) train_cost: 0.106, test_cost: 0.114, train_acc: 0.965, test_acc: 0.965
+EPOCH:: 23, (54m 27s) train_cost: 0.099, test_cost: 0.107, train_acc: 0.969, test_acc: 0.967
+EPOCH:: 24, (56m 46s) train_cost: 0.093, test_cost: 0.107, train_acc: 0.971, test_acc: 0.966
+EPOCH:: 25, (59m 6s) train_cost: 0.085, test_cost: 0.106, train_acc: 0.973, test_acc: 0.969
+EPOCH:: 26, (61m 29s) train_cost: 0.085, test_cost: 0.093, train_acc: 0.974, test_acc: 0.971
+EPOCH:: 27, (63m 51s) train_cost: 0.080, test_cost: 0.092, train_acc: 0.975, test_acc: 0.972
+EPOCH:: 28, (66m 14s) train_cost: 0.082, test_cost: 0.101, train_acc: 0.976, test_acc: 0.969
+EPOCH:: 29, (68m 33s) train_cost: 0.108, test_cost: 0.079, train_acc: 0.966, test_acc: 0.975
+EPOCH:: 30, (70m 57s) train_cost: 0.134, test_cost: 0.173, train_acc: 0.958, test_acc: 0.945
+EPOCH:: 31, (73m 21s) train_cost: 0.206, test_cost: 0.151, train_acc: 0.932, test_acc: 0.951
+EPOCH:: 32, (75m 46s) train_cost: 0.135, test_cost: 0.105, train_acc: 0.957, test_acc: 0.967
+EPOCH:: 33, (78m 6s) train_cost: 0.109, test_cost: 0.186, train_acc: 0.966, test_acc: 0.941
+EPOCH:: 34, (80m 28s) train_cost: 0.107, test_cost: 0.092, train_acc: 0.966, test_acc: 0.971
+EPOCH:: 35, (82m 49s) train_cost: 0.078, test_cost: 0.095, train_acc: 0.976, test_acc: 0.969
+EPOCH:: 36, (85m 10s) train_cost: 0.079, test_cost: 0.094, train_acc: 0.975, test_acc: 0.970
+EPOCH:: 37, (87m 29s) train_cost: 0.076, test_cost: 0.076, train_acc: 0.977, test_acc: 0.975
+EPOCH:: 38, (89m 49s) train_cost: 0.070, test_cost: 0.084, train_acc: 0.978, test_acc: 0.974
+EPOCH:: 39, (92m 9s) train_cost: 0.077, test_cost: 0.078, train_acc: 0.976, test_acc: 0.976
+EPOCH:: 40, (94m 33s) train_cost: 0.070, test_cost: 0.085, train_acc: 0.978, test_acc: 0.974
+EPOCH:: 41, (96m 59s) train_cost: 0.081, test_cost: 0.080, train_acc: 0.975, test_acc: 0.975
+EPOCH:: 42, (99m 21s) train_cost: 0.070, test_cost: 0.084, train_acc: 0.979, test_acc: 0.975
+EPOCH:: 43, (101m 46s) train_cost: 0.066, test_cost: 0.067, train_acc: 0.980, test_acc: 0.979
+EPOCH:: 44, (104m 8s) train_cost: 0.078, test_cost: 0.092, train_acc: 0.975, test_acc: 0.972
+EPOCH:: 45, (106m 28s) train_cost: 0.118, test_cost: 0.127, train_acc: 0.962, test_acc: 0.960
+EPOCH:: 46, (108m 52s) train_cost: 0.076, test_cost: 0.075, train_acc: 0.977, test_acc: 0.978
+EPOCH:: 47, (111m 13s) train_cost: 0.065, test_cost: 0.077, train_acc: 0.980, test_acc: 0.976
+EPOCH:: 48, (113m 36s) train_cost: 0.123, test_cost: 0.120, train_acc: 0.960, test_acc: 0.963
+EPOCH:: 49, (115m 58s) train_cost: 0.070, test_cost: 0.071, train_acc: 0.978, test_acc: 0.977
+EPOCH:: 50, (118m 20s) train_cost: 0.088, test_cost: 0.137, train_acc: 0.972, test_acc: 0.953
+max test_acc: 0.979
+-------------------------------------------------------------------
+12回目
+{'weight_decay': 0.0004790369686519976, 'clip': 26.766944371418067, 'l_rate': 0.01008880044142326, 'dropout': 0.06992321494455245}
+EPOCH:: 1, (2m 18s) train_cost: 2.315, test_cost: 2.302, train_acc: 0.109, test_acc: 0.100
+EPOCH:: 2, (4m 36s) train_cost: 2.303, test_cost: 2.302, train_acc: 0.108, test_acc: 0.110
+EPOCH:: 3, (6m 55s) train_cost: 2.303, test_cost: 2.302, train_acc: 0.110, test_acc: 0.110
+EPOCH:: 4, (9m 19s) train_cost: 2.303, test_cost: 2.302, train_acc: 0.109, test_acc: 0.101
+EPOCH:: 5, (11m 43s) train_cost: 2.303, test_cost: 2.302, train_acc: 0.108, test_acc: 0.110
+EPOCH:: 6, (14m 8s) train_cost: 2.303, test_cost: 2.303, train_acc: 0.111, test_acc: 0.110
+EPOCH:: 7, (16m 32s) train_cost: 2.304, test_cost: 2.301, train_acc: 0.108, test_acc: 0.110
+EPOCH:: 8, (18m 56s) train_cost: 2.303, test_cost: 2.303, train_acc: 0.109, test_acc: 0.103
+EPOCH:: 9, (21m 16s) train_cost: 2.304, test_cost: 2.307, train_acc: 0.108, test_acc: 0.103
+EPOCH:: 10, (23m 33s) train_cost: nan, test_cost: nan, train_acc: 0.110, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.110
+-------------------------------------------------------------------
+13回目
+{'weight_decay': 0.0005218105327037839, 'clip': 142.17520268810432, 'l_rate': 5.2145187885230414e-05, 'dropout': 0.6153484833935186}
+EPOCH:: 1, (2m 18s) train_cost: 2.306, test_cost: 2.301, train_acc: 0.103, test_acc: 0.110
+EPOCH:: 2, (4m 41s) train_cost: 2.303, test_cost: 2.301, train_acc: 0.108, test_acc: 0.110
+EPOCH:: 3, (7m 4s) train_cost: 2.302, test_cost: 2.301, train_acc: 0.111, test_acc: 0.110
+EPOCH:: 4, (9m 27s) train_cost: 2.290, test_cost: 2.225, train_acc: 0.132, test_acc: 0.197
+EPOCH:: 5, (11m 51s) train_cost: 2.027, test_cost: 1.923, train_acc: 0.214, test_acc: 0.247
+EPOCH:: 6, (14m 16s) train_cost: 1.894, test_cost: 1.810, train_acc: 0.255, test_acc: 0.340
+EPOCH:: 7, (16m 38s) train_cost: 1.795, test_cost: 1.683, train_acc: 0.296, test_acc: 0.405
+EPOCH:: 8, (18m 56s) train_cost: 1.715, test_cost: 1.619, train_acc: 0.317, test_acc: 0.400
+EPOCH:: 9, (21m 15s) train_cost: 1.665, test_cost: 1.581, train_acc: 0.333, test_acc: 0.403
+EPOCH:: 10, (23m 29s) train_cost: 1.627, test_cost: 1.552, train_acc: 0.352, test_acc: 0.411
+EPOCH:: 11, (25m 53s) train_cost: 1.587, test_cost: 1.508, train_acc: 0.371, test_acc: 0.427
+EPOCH:: 12, (28m 18s) train_cost: 1.542, test_cost: 1.463, train_acc: 0.397, test_acc: 0.433
+EPOCH:: 13, (30m 43s) train_cost: 1.494, test_cost: 1.408, train_acc: 0.412, test_acc: 0.457
+EPOCH:: 14, (33m 8s) train_cost: 1.444, test_cost: 1.373, train_acc: 0.427, test_acc: 0.464
+EPOCH:: 15, (35m 32s) train_cost: 1.413, test_cost: 1.352, train_acc: 0.439, test_acc: 0.474
+EPOCH:: 16, (37m 55s) train_cost: 1.394, test_cost: 1.344, train_acc: 0.447, test_acc: 0.483
+EPOCH:: 17, (40m 20s) train_cost: 1.383, test_cost: 1.329, train_acc: 0.454, test_acc: 0.483
+EPOCH:: 18, (42m 44s) train_cost: 1.372, test_cost: 1.326, train_acc: 0.460, test_acc: 0.485
+EPOCH:: 19, (45m 7s) train_cost: 1.362, test_cost: 1.315, train_acc: 0.466, test_acc: 0.488
+EPOCH:: 20, (47m 30s) train_cost: 1.343, test_cost: 1.292, train_acc: 0.474, test_acc: 0.510
+EPOCH:: 21, (49m 56s) train_cost: 1.322, test_cost: 1.291, train_acc: 0.486, test_acc: 0.506
+EPOCH:: 22, (52m 20s) train_cost: 1.302, test_cost: 1.254, train_acc: 0.495, test_acc: 0.531
+EPOCH:: 23, (54m 40s) train_cost: 1.275, test_cost: 1.304, train_acc: 0.512, test_acc: 0.521
+EPOCH:: 24, (56m 59s) train_cost: 1.247, test_cost: 1.192, train_acc: 0.533, test_acc: 0.570
+EPOCH:: 25, (59m 18s) train_cost: 1.214, test_cost: 1.172, train_acc: 0.552, test_acc: 0.586
+EPOCH:: 26, (61m 39s) train_cost: 1.177, test_cost: 1.151, train_acc: 0.572, test_acc: 0.594
+EPOCH:: 27, (63m 56s) train_cost: 1.148, test_cost: 1.101, train_acc: 0.586, test_acc: 0.618
+EPOCH:: 28, (66m 18s) train_cost: 1.116, test_cost: 1.058, train_acc: 0.603, test_acc: 0.628
+EPOCH:: 29, (68m 43s) train_cost: 1.089, test_cost: 1.038, train_acc: 0.613, test_acc: 0.634
+EPOCH:: 30, (71m 8s) train_cost: 1.052, test_cost: 1.019, train_acc: 0.626, test_acc: 0.658
+EPOCH:: 31, (73m 32s) train_cost: 1.009, test_cost: 0.960, train_acc: 0.644, test_acc: 0.662
+EPOCH:: 32, (75m 52s) train_cost: 0.955, test_cost: 0.893, train_acc: 0.658, test_acc: 0.684
+EPOCH:: 33, (78m 13s) train_cost: 0.922, test_cost: 0.865, train_acc: 0.665, test_acc: 0.692
+EPOCH:: 34, (80m 34s) train_cost: 0.897, test_cost: 0.839, train_acc: 0.674, test_acc: 0.694
+EPOCH:: 35, (82m 59s) train_cost: 0.875, test_cost: 0.814, train_acc: 0.680, test_acc: 0.708
+EPOCH:: 36, (85m 24s) train_cost: 0.854, test_cost: 0.834, train_acc: 0.687, test_acc: 0.696
+EPOCH:: 37, (87m 43s) train_cost: 0.832, test_cost: 0.772, train_acc: 0.695, test_acc: 0.727
+EPOCH:: 38, (89m 59s) train_cost: 0.798, test_cost: 0.751, train_acc: 0.707, test_acc: 0.735
+EPOCH:: 39, (92m 13s) train_cost: 0.765, test_cost: 0.723, train_acc: 0.722, test_acc: 0.747
+EPOCH:: 40, (94m 29s) train_cost: 0.732, test_cost: 0.670, train_acc: 0.735, test_acc: 0.762
+EPOCH:: 41, (96m 45s) train_cost: 0.704, test_cost: 0.651, train_acc: 0.747, test_acc: 0.769
+EPOCH:: 42, (99m 8s) train_cost: 0.681, test_cost: 0.632, train_acc: 0.755, test_acc: 0.777
+EPOCH:: 43, (101m 29s) train_cost: 0.660, test_cost: 0.612, train_acc: 0.764, test_acc: 0.784
+EPOCH:: 44, (103m 50s) train_cost: 0.645, test_cost: 0.600, train_acc: 0.769, test_acc: 0.791
+EPOCH:: 45, (106m 11s) train_cost: 0.635, test_cost: 0.595, train_acc: 0.773, test_acc: 0.791
+EPOCH:: 46, (108m 29s) train_cost: 0.624, test_cost: 0.583, train_acc: 0.776, test_acc: 0.794
+EPOCH:: 47, (110m 51s) train_cost: 0.612, test_cost: 0.582, train_acc: 0.783, test_acc: 0.797
+EPOCH:: 48, (113m 12s) train_cost: 0.605, test_cost: 0.569, train_acc: 0.784, test_acc: 0.799
+EPOCH:: 49, (115m 32s) train_cost: 0.593, test_cost: 0.585, train_acc: 0.790, test_acc: 0.796
+EPOCH:: 50, (117m 52s) train_cost: 0.585, test_cost: 0.553, train_acc: 0.793, test_acc: 0.811
+max test_acc: 0.811
+-------------------------------------------------------------------
+14回目
+{'weight_decay': 0.00013750759295116536, 'clip': 8645.556213573691, 'l_rate': 0.00023777521169827064, 'dropout': 0.9111234226044}
+EPOCH:: 1, (2m 17s) train_cost: 2.309, test_cost: 2.300, train_acc: 0.102, test_acc: 0.110
+EPOCH:: 2, (4m 33s) train_cost: 2.111, test_cost: 1.804, train_acc: 0.187, test_acc: 0.310
+EPOCH:: 3, (6m 48s) train_cost: 1.745, test_cost: 1.526, train_acc: 0.310, test_acc: 0.432
+EPOCH:: 4, (9m 5s) train_cost: 1.521, test_cost: 1.337, train_acc: 0.401, test_acc: 0.482
+EPOCH:: 5, (11m 25s) train_cost: 1.432, test_cost: 1.306, train_acc: 0.440, test_acc: 0.497
+EPOCH:: 6, (13m 47s) train_cost: 1.377, test_cost: 1.242, train_acc: 0.471, test_acc: 0.540
+EPOCH:: 7, (16m 7s) train_cost: 1.316, test_cost: 1.188, train_acc: 0.506, test_acc: 0.571
+EPOCH:: 8, (18m 27s) train_cost: 1.252, test_cost: 1.079, train_acc: 0.537, test_acc: 0.600
+EPOCH:: 9, (20m 46s) train_cost: 1.145, test_cost: 0.957, train_acc: 0.579, test_acc: 0.653
+EPOCH:: 10, (23m 6s) train_cost: 1.015, test_cost: 0.839, train_acc: 0.639, test_acc: 0.710
+EPOCH:: 11, (25m 26s) train_cost: 0.916, test_cost: 0.714, train_acc: 0.685, test_acc: 0.748
+EPOCH:: 12, (27m 47s) train_cost: 0.816, test_cost: 0.644, train_acc: 0.724, test_acc: 0.771
+EPOCH:: 13, (30m 6s) train_cost: 0.739, test_cost: 0.609, train_acc: 0.756, test_acc: 0.785
+EPOCH:: 14, (32m 25s) train_cost: 0.687, test_cost: 0.575, train_acc: 0.778, test_acc: 0.802
+EPOCH:: 15, (34m 44s) train_cost: 0.638, test_cost: 0.503, train_acc: 0.791, test_acc: 0.817
+EPOCH:: 16, (37m 0s) train_cost: 0.598, test_cost: 0.455, train_acc: 0.805, test_acc: 0.839
+EPOCH:: 17, (39m 16s) train_cost: 0.578, test_cost: 0.487, train_acc: 0.812, test_acc: 0.838
+EPOCH:: 18, (41m 31s) train_cost: 0.560, test_cost: 0.457, train_acc: 0.815, test_acc: 0.838
+EPOCH:: 19, (43m 51s) train_cost: 0.536, test_cost: 0.418, train_acc: 0.824, test_acc: 0.847
+EPOCH:: 20, (46m 11s) train_cost: 0.509, test_cost: 0.392, train_acc: 0.831, test_acc: 0.853
+EPOCH:: 21, (48m 31s) train_cost: 0.498, test_cost: 0.374, train_acc: 0.836, test_acc: 0.865
+EPOCH:: 22, (50m 48s) train_cost: 0.492, test_cost: 0.365, train_acc: 0.834, test_acc: 0.862
+EPOCH:: 23, (53m 4s) train_cost: 0.470, test_cost: 0.369, train_acc: 0.841, test_acc: 0.864
+EPOCH:: 24, (55m 20s) train_cost: 0.451, test_cost: 0.385, train_acc: 0.847, test_acc: 0.859
+EPOCH:: 25, (57m 36s) train_cost: 0.446, test_cost: 0.344, train_acc: 0.849, test_acc: 0.875
+EPOCH:: 26, (59m 57s) train_cost: 0.435, test_cost: 0.367, train_acc: 0.852, test_acc: 0.860
+EPOCH:: 27, (62m 17s) train_cost: 0.430, test_cost: 0.376, train_acc: 0.853, test_acc: 0.873
+EPOCH:: 28, (64m 37s) train_cost: 0.422, test_cost: 0.368, train_acc: 0.855, test_acc: 0.863
+EPOCH:: 29, (66m 58s) train_cost: 0.404, test_cost: 0.322, train_acc: 0.860, test_acc: 0.882
+EPOCH:: 30, (69m 19s) train_cost: 0.409, test_cost: 0.326, train_acc: 0.859, test_acc: 0.876
+EPOCH:: 31, (71m 39s) train_cost: 0.392, test_cost: 0.312, train_acc: 0.861, test_acc: 0.888
+EPOCH:: 32, (73m 59s) train_cost: 0.384, test_cost: 0.347, train_acc: 0.865, test_acc: 0.880
+EPOCH:: 33, (76m 19s) train_cost: 0.383, test_cost: 0.302, train_acc: 0.865, test_acc: 0.892
+EPOCH:: 34, (78m 33s) train_cost: 0.377, test_cost: 0.318, train_acc: 0.869, test_acc: 0.886
+EPOCH:: 35, (80m 48s) train_cost: 0.365, test_cost: 0.285, train_acc: 0.874, test_acc: 0.896
+EPOCH:: 36, (83m 4s) train_cost: 0.362, test_cost: 0.304, train_acc: 0.875, test_acc: 0.895
+EPOCH:: 37, (85m 23s) train_cost: 0.350, test_cost: 0.284, train_acc: 0.883, test_acc: 0.899
+EPOCH:: 38, (87m 43s) train_cost: 0.348, test_cost: 0.278, train_acc: 0.886, test_acc: 0.903
+EPOCH:: 39, (90m 4s) train_cost: 0.337, test_cost: 0.261, train_acc: 0.892, test_acc: 0.914
+EPOCH:: 40, (92m 23s) train_cost: 0.332, test_cost: 0.258, train_acc: 0.896, test_acc: 0.916
+EPOCH:: 41, (94m 44s) train_cost: 0.316, test_cost: 0.276, train_acc: 0.903, test_acc: 0.908
+EPOCH:: 42, (97m 3s) train_cost: 0.316, test_cost: 0.251, train_acc: 0.904, test_acc: 0.918
+EPOCH:: 43, (99m 23s) train_cost: 0.308, test_cost: 0.248, train_acc: 0.909, test_acc: 0.925
+EPOCH:: 44, (101m 43s) train_cost: 0.299, test_cost: 0.222, train_acc: 0.913, test_acc: 0.930
+EPOCH:: 45, (104m 4s) train_cost: 0.293, test_cost: 0.230, train_acc: 0.916, test_acc: 0.926
+EPOCH:: 46, (106m 25s) train_cost: 0.286, test_cost: 0.221, train_acc: 0.918, test_acc: 0.932
+EPOCH:: 47, (108m 44s) train_cost: 0.286, test_cost: 0.219, train_acc: 0.917, test_acc: 0.931
+EPOCH:: 48, (110m 59s) train_cost: 0.275, test_cost: 0.215, train_acc: 0.921, test_acc: 0.932
+EPOCH:: 49, (113m 17s) train_cost: 0.271, test_cost: 0.224, train_acc: 0.923, test_acc: 0.932
+EPOCH:: 50, (115m 33s) train_cost: 0.265, test_cost: 0.255, train_acc: 0.925, test_acc: 0.920
+max test_acc: 0.932
+-------------------------------------------------------------------
+15回目
+{'weight_decay': 0.001065126263538608, 'clip': 1154.0619889277184, 'l_rate': 7.401755669477613e-05, 'dropout': 0.5772864456204437}
+EPOCH:: 1, (2m 19s) train_cost: 2.305, test_cost: 2.301, train_acc: 0.108, test_acc: 0.110
+EPOCH:: 2, (4m 40s) train_cost: 2.303, test_cost: 2.301, train_acc: 0.109, test_acc: 0.110
+EPOCH:: 3, (7m 1s) train_cost: 2.302, test_cost: 2.301, train_acc: 0.111, test_acc: 0.110
+EPOCH:: 4, (9m 21s) train_cost: 2.303, test_cost: 2.300, train_acc: 0.111, test_acc: 0.113
+EPOCH:: 5, (11m 41s) train_cost: 2.286, test_cost: 2.167, train_acc: 0.134, test_acc: 0.188
+EPOCH:: 6, (14m 2s) train_cost: 1.981, test_cost: 1.862, train_acc: 0.219, test_acc: 0.280
+EPOCH:: 7, (16m 22s) train_cost: 1.901, test_cost: 1.839, train_acc: 0.246, test_acc: 0.317
+EPOCH:: 8, (18m 43s) train_cost: 1.856, test_cost: 1.796, train_acc: 0.278, test_acc: 0.340
+EPOCH:: 9, (21m 1s) train_cost: 1.778, test_cost: 1.693, train_acc: 0.310, test_acc: 0.357
+EPOCH:: 10, (23m 22s) train_cost: 1.712, test_cost: 1.670, train_acc: 0.326, test_acc: 0.366
+EPOCH:: 11, (25m 41s) train_cost: 1.673, test_cost: 1.624, train_acc: 0.335, test_acc: 0.370
+EPOCH:: 12, (27m 57s) train_cost: 1.649, test_cost: 1.606, train_acc: 0.342, test_acc: 0.378
+EPOCH:: 13, (30m 13s) train_cost: 1.625, test_cost: 1.581, train_acc: 0.349, test_acc: 0.385
+EPOCH:: 14, (32m 28s) train_cost: 1.607, test_cost: 1.570, train_acc: 0.360, test_acc: 0.394
+EPOCH:: 15, (34m 49s) train_cost: 1.588, test_cost: 1.541, train_acc: 0.370, test_acc: 0.405
+EPOCH:: 16, (37m 9s) train_cost: 1.566, test_cost: 1.528, train_acc: 0.383, test_acc: 0.422
+EPOCH:: 17, (39m 29s) train_cost: 1.545, test_cost: 1.499, train_acc: 0.400, test_acc: 0.443
+EPOCH:: 18, (41m 50s) train_cost: 1.518, test_cost: 1.462, train_acc: 0.417, test_acc: 0.451
+EPOCH:: 19, (44m 10s) train_cost: 1.485, test_cost: 1.430, train_acc: 0.434, test_acc: 0.468
+EPOCH:: 20, (46m 30s) train_cost: 1.454, test_cost: 1.397, train_acc: 0.447, test_acc: 0.477
+EPOCH:: 21, (48m 51s) train_cost: 1.427, test_cost: 1.385, train_acc: 0.457, test_acc: 0.479
+EPOCH:: 22, (51m 10s) train_cost: 1.398, test_cost: 1.362, train_acc: 0.469, test_acc: 0.480
+EPOCH:: 23, (53m 30s) train_cost: 1.381, test_cost: 1.344, train_acc: 0.475, test_acc: 0.492
+EPOCH:: 24, (55m 51s) train_cost: 1.360, test_cost: 1.319, train_acc: 0.483, test_acc: 0.489
+EPOCH:: 25, (58m 10s) train_cost: 1.335, test_cost: 1.285, train_acc: 0.496, test_acc: 0.515
+EPOCH:: 26, (60m 27s) train_cost: 1.296, test_cost: 1.244, train_acc: 0.517, test_acc: 0.540
+EPOCH:: 27, (62m 44s) train_cost: 1.252, test_cost: 1.198, train_acc: 0.540, test_acc: 0.567
+EPOCH:: 28, (65m 1s) train_cost: 1.203, test_cost: 1.140, train_acc: 0.556, test_acc: 0.575
+EPOCH:: 29, (67m 18s) train_cost: 1.161, test_cost: 1.121, train_acc: 0.573, test_acc: 0.598
+EPOCH:: 30, (69m 39s) train_cost: 1.136, test_cost: 1.094, train_acc: 0.585, test_acc: 0.606
+EPOCH:: 31, (71m 59s) train_cost: 1.111, test_cost: 1.063, train_acc: 0.595, test_acc: 0.625
+EPOCH:: 32, (74m 19s) train_cost: 1.098, test_cost: 1.043, train_acc: 0.601, test_acc: 0.628
+EPOCH:: 33, (76m 40s) train_cost: 1.082, test_cost: 1.029, train_acc: 0.609, test_acc: 0.634
+EPOCH:: 34, (79m 0s) train_cost: 1.071, test_cost: 1.015, train_acc: 0.612, test_acc: 0.640
+EPOCH:: 35, (81m 19s) train_cost: 1.060, test_cost: 1.047, train_acc: 0.618, test_acc: 0.626
+EPOCH:: 36, (83m 40s) train_cost: 1.054, test_cost: 1.015, train_acc: 0.621, test_acc: 0.635
+EPOCH:: 37, (86m 0s) train_cost: 1.037, test_cost: 0.986, train_acc: 0.628, test_acc: 0.654
+EPOCH:: 38, (88m 20s) train_cost: 1.027, test_cost: 0.991, train_acc: 0.631, test_acc: 0.642
+EPOCH:: 39, (90m 41s) train_cost: 1.021, test_cost: 0.975, train_acc: 0.634, test_acc: 0.654
+EPOCH:: 40, (93m 0s) train_cost: 1.006, test_cost: 0.965, train_acc: 0.642, test_acc: 0.666
+EPOCH:: 41, (95m 19s) train_cost: 0.999, test_cost: 0.971, train_acc: 0.645, test_acc: 0.656
+EPOCH:: 42, (97m 35s) train_cost: 0.985, test_cost: 0.943, train_acc: 0.651, test_acc: 0.670
+EPOCH:: 43, (99m 52s) train_cost: 0.969, test_cost: 0.917, train_acc: 0.661, test_acc: 0.685
+EPOCH:: 44, (102m 8s) train_cost: 0.948, test_cost: 0.883, train_acc: 0.672, test_acc: 0.709
+EPOCH:: 45, (104m 27s) train_cost: 0.934, test_cost: 0.866, train_acc: 0.678, test_acc: 0.709
+EPOCH:: 46, (106m 42s) train_cost: 0.911, test_cost: 0.854, train_acc: 0.690, test_acc: 0.717
+EPOCH:: 47, (108m 58s) train_cost: 0.894, test_cost: 0.849, train_acc: 0.695, test_acc: 0.713
+EPOCH:: 48, (111m 10s) train_cost: 0.878, test_cost: 0.844, train_acc: 0.702, test_acc: 0.715
+EPOCH:: 49, (113m 24s) train_cost: 0.868, test_cost: 0.815, train_acc: 0.705, test_acc: 0.727
+EPOCH:: 50, (115m 44s) train_cost: 0.859, test_cost: 0.847, train_acc: 0.706, test_acc: 0.705
+max test_acc: 0.727
+-------------------------------------------------------------------
+16回目
+{'weight_decay': 1.3925134707499966e-05, 'clip': 246.85727576193466, 'l_rate': 0.007978400618235574, 'dropout': 0.5863996308964406}
+EPOCH:: 1, (2m 17s) train_cost: 2.448, test_cost: 2.333, train_acc: 0.110, test_acc: 0.110
+EPOCH:: 2, (4m 35s) train_cost: 2.396, test_cost: 2.312, train_acc: 0.108, test_acc: 0.103
+EPOCH:: 3, (6m 51s) train_cost: 2.390, test_cost: 2.324, train_acc: 0.109, test_acc: 0.096
+EPOCH:: 4, (9m 6s) train_cost: 2.378, test_cost: 2.324, train_acc: 0.111, test_acc: 0.097
+EPOCH:: 5, (11m 22s) train_cost: 2.387, test_cost: 2.291, train_acc: 0.111, test_acc: 0.170
+EPOCH:: 6, (13m 39s) train_cost: 2.381, test_cost: 2.330, train_acc: 0.114, test_acc: 0.101
+EPOCH:: 7, (15m 55s) train_cost: 2.380, test_cost: 2.339, train_acc: 0.114, test_acc: 0.154
+EPOCH:: 8, (18m 11s) train_cost: 2.392, test_cost: 2.300, train_acc: 0.110, test_acc: 0.103
+EPOCH:: 9, (20m 27s) train_cost: 2.382, test_cost: 2.293, train_acc: 0.114, test_acc: 0.088
+EPOCH:: 10, (22m 25s) train_cost: 2.383, test_cost: 2.292, train_acc: 0.117, test_acc: 0.138
+EPOCH:: 11, (24m 40s) train_cost: 2.382, test_cost: 2.324, train_acc: 0.114, test_acc: 0.101
+EPOCH:: 12, (26m 55s) train_cost: 2.379, test_cost: 2.304, train_acc: 0.115, test_acc: 0.166
+EPOCH:: 13, (29m 12s) train_cost: 2.381, test_cost: 2.293, train_acc: 0.115, test_acc: 0.119
+EPOCH:: 14, (31m 29s) train_cost: 2.383, test_cost: 2.289, train_acc: 0.114, test_acc: 0.118
+EPOCH:: 15, (33m 43s) train_cost: 2.382, test_cost: 2.306, train_acc: 0.117, test_acc: 0.088
+EPOCH:: 16, (35m 58s) train_cost: 2.376, test_cost: 2.305, train_acc: 0.115, test_acc: 0.146
+EPOCH:: 17, (38m 13s) train_cost: 2.379, test_cost: 2.279, train_acc: 0.115, test_acc: 0.207
+EPOCH:: 18, (40m 27s) train_cost: 2.379, test_cost: 2.304, train_acc: 0.116, test_acc: 0.143
+EPOCH:: 19, (42m 39s) train_cost: 2.377, test_cost: 2.323, train_acc: 0.117, test_acc: 0.173
+EPOCH:: 20, (45m 1s) train_cost: 2.379, test_cost: 2.316, train_acc: 0.116, test_acc: 0.142
+EPOCH:: 21, (47m 21s) train_cost: 2.382, test_cost: 2.306, train_acc: 0.115, test_acc: 0.107
+EPOCH:: 22, (49m 41s) train_cost: 2.375, test_cost: 2.322, train_acc: 0.117, test_acc: 0.117
+EPOCH:: 23, (52m 0s) train_cost: 2.381, test_cost: 2.294, train_acc: 0.113, test_acc: 0.097
+EPOCH:: 24, (54m 20s) train_cost: 2.381, test_cost: 2.304, train_acc: 0.114, test_acc: 0.119
+EPOCH:: 25, (56m 42s) train_cost: 2.379, test_cost: 2.296, train_acc: 0.116, test_acc: 0.106
+EPOCH:: 26, (59m 3s) train_cost: 2.382, test_cost: 2.322, train_acc: 0.116, test_acc: 0.118
+EPOCH:: 27, (61m 23s) train_cost: 2.379, test_cost: 2.305, train_acc: 0.115, test_acc: 0.158
+EPOCH:: 28, (63m 45s) train_cost: 2.385, test_cost: 2.343, train_acc: 0.115, test_acc: 0.105
+EPOCH:: 29, (66m 3s) train_cost: 2.373, test_cost: 2.311, train_acc: 0.116, test_acc: 0.098
+EPOCH:: 30, (68m 22s) train_cost: 2.380, test_cost: 2.326, train_acc: 0.115, test_acc: 0.184
+EPOCH:: 31, (70m 44s) train_cost: 2.381, test_cost: 2.328, train_acc: 0.117, test_acc: 0.110
+EPOCH:: 32, (73m 3s) train_cost: 2.379, test_cost: 2.298, train_acc: 0.116, test_acc: 0.162
+EPOCH:: 33, (75m 20s) train_cost: 2.383, test_cost: 2.297, train_acc: 0.118, test_acc: 0.151
+EPOCH:: 34, (77m 28s) train_cost: 2.377, test_cost: 2.336, train_acc: 0.118, test_acc: 0.144
+EPOCH:: 35, (79m 38s) train_cost: 2.380, test_cost: 2.292, train_acc: 0.115, test_acc: 0.103
+EPOCH:: 36, (81m 48s) train_cost: 2.380, test_cost: 2.326, train_acc: 0.115, test_acc: 0.110
+EPOCH:: 37, (83m 58s) train_cost: 2.380, test_cost: 2.303, train_acc: 0.117, test_acc: 0.115
+EPOCH:: 38, (86m 13s) train_cost: 2.374, test_cost: 2.281, train_acc: 0.119, test_acc: 0.155
+EPOCH:: 39, (88m 14s) train_cost: 2.379, test_cost: 2.287, train_acc: 0.117, test_acc: 0.149
+EPOCH:: 40, (90m 20s) train_cost: 2.379, test_cost: 2.294, train_acc: 0.118, test_acc: 0.140
+EPOCH:: 41, (92m 38s) train_cost: 2.380, test_cost: 2.353, train_acc: 0.118, test_acc: 0.103
+EPOCH:: 42, (94m 53s) train_cost: 2.380, test_cost: 2.319, train_acc: 0.115, test_acc: 0.167
+EPOCH:: 43, (97m 8s) train_cost: 2.381, test_cost: 2.281, train_acc: 0.118, test_acc: 0.101
+EPOCH:: 44, (99m 22s) train_cost: 2.377, test_cost: 2.297, train_acc: 0.116, test_acc: 0.121
+EPOCH:: 45, (101m 36s) train_cost: 2.384, test_cost: 2.319, train_acc: 0.115, test_acc: 0.127
+EPOCH:: 46, (103m 46s) train_cost: 2.377, test_cost: 2.323, train_acc: 0.118, test_acc: 0.162
+EPOCH:: 47, (105m 56s) train_cost: 2.378, test_cost: 2.273, train_acc: 0.115, test_acc: 0.170
+EPOCH:: 48, (108m 8s) train_cost: 2.382, test_cost: 2.316, train_acc: 0.115, test_acc: 0.188
+EPOCH:: 49, (110m 16s) train_cost: 2.376, test_cost: 2.316, train_acc: 0.118, test_acc: 0.103
+EPOCH:: 50, (112m 25s) train_cost: 2.385, test_cost: 2.315, train_acc: 0.115, test_acc: 0.099
+max test_acc: 0.207
+-------------------------------------------------------------------
+17回目
+{'weight_decay': 0.01807523528522962, 'clip': 1.3261766719970975, 'l_rate': 0.11757628431525387, 'dropout': 0.012642578544779126}
+EPOCH:: 1, (2m 11s) train_cost: 2.902, test_cost: 3.001, train_acc: 0.104, test_acc: 0.118
+EPOCH:: 2, (4m 23s) train_cost: 2.767, test_cost: 2.864, train_acc: 0.104, test_acc: 0.109
+EPOCH:: 3, (6m 32s) train_cost: 2.781, test_cost: 2.847, train_acc: 0.104, test_acc: 0.099
+EPOCH:: 4, (8m 47s) train_cost: 2.785, test_cost: 2.825, train_acc: 0.104, test_acc: 0.101
+EPOCH:: 5, (11m 1s) train_cost: 2.730, test_cost: 2.987, train_acc: 0.105, test_acc: 0.113
+EPOCH:: 6, (13m 12s) train_cost: 2.863, test_cost: 2.739, train_acc: 0.104, test_acc: 0.096
+EPOCH:: 7, (15m 20s) train_cost: 2.756, test_cost: 2.541, train_acc: 0.104, test_acc: 0.101
+EPOCH:: 8, (17m 26s) train_cost: 2.807, test_cost: 2.884, train_acc: 0.106, test_acc: 0.101
+EPOCH:: 9, (19m 37s) train_cost: 2.800, test_cost: 2.838, train_acc: 0.105, test_acc: 0.086
+EPOCH:: 10, (21m 48s) train_cost: 2.768, test_cost: 2.968, train_acc: 0.106, test_acc: 0.100
+EPOCH:: 11, (23m 59s) train_cost: 2.706, test_cost: 2.620, train_acc: 0.104, test_acc: 0.118
+EPOCH:: 12, (26m 11s) train_cost: 2.786, test_cost: 2.667, train_acc: 0.106, test_acc: 0.114
+EPOCH:: 13, (28m 9s) train_cost: 2.788, test_cost: 2.578, train_acc: 0.106, test_acc: 0.107
+EPOCH:: 14, (30m 15s) train_cost: 2.725, test_cost: 2.576, train_acc: 0.108, test_acc: 0.112
+EPOCH:: 15, (32m 27s) train_cost: 2.864, test_cost: 2.587, train_acc: 0.107, test_acc: 0.123
+EPOCH:: 16, (34m 39s) train_cost: 2.781, test_cost: 3.302, train_acc: 0.105, test_acc: 0.110
+EPOCH:: 17, (36m 49s) train_cost: 2.795, test_cost: 2.526, train_acc: 0.105, test_acc: 0.106
+EPOCH:: 18, (39m 2s) train_cost: 2.758, test_cost: 2.601, train_acc: 0.104, test_acc: 0.113
+EPOCH:: 19, (41m 20s) train_cost: 2.743, test_cost: 2.764, train_acc: 0.104, test_acc: 0.102
+EPOCH:: 20, (43m 33s) train_cost: 2.819, test_cost: 3.357, train_acc: 0.106, test_acc: 0.098
+EPOCH:: 21, (45m 45s) train_cost: 2.793, test_cost: 2.663, train_acc: 0.106, test_acc: 0.089
+EPOCH:: 22, (47m 58s) train_cost: 2.797, test_cost: 2.687, train_acc: 0.103, test_acc: 0.103
+EPOCH:: 23, (50m 9s) train_cost: 2.751, test_cost: 2.967, train_acc: 0.104, test_acc: 0.101
+EPOCH:: 24, (52m 18s) train_cost: 2.760, test_cost: 3.050, train_acc: 0.106, test_acc: 0.103
+EPOCH:: 25, (54m 29s) train_cost: 2.807, test_cost: 2.674, train_acc: 0.104, test_acc: 0.107
+EPOCH:: 26, (56m 43s) train_cost: 2.795, test_cost: 2.694, train_acc: 0.105, test_acc: 0.098
+EPOCH:: 27, (59m 0s) train_cost: 2.790, test_cost: 2.802, train_acc: 0.106, test_acc: 0.104
+EPOCH:: 28, (61m 2s) train_cost: 2.757, test_cost: 2.950, train_acc: 0.105, test_acc: 0.093
+EPOCH:: 29, (63m 14s) train_cost: 2.771, test_cost: 2.650, train_acc: 0.104, test_acc: 0.098
+EPOCH:: 30, (65m 26s) train_cost: 2.892, test_cost: 2.941, train_acc: 0.102, test_acc: 0.110
+EPOCH:: 31, (67m 45s) train_cost: 2.788, test_cost: 2.682, train_acc: 0.106, test_acc: 0.115
+EPOCH:: 32, (70m 4s) train_cost: 2.754, test_cost: 2.701, train_acc: 0.104, test_acc: 0.099
+EPOCH:: 33, (72m 23s) train_cost: 2.749, test_cost: 2.550, train_acc: 0.106, test_acc: 0.102
+EPOCH:: 34, (74m 41s) train_cost: 2.819, test_cost: 2.703, train_acc: 0.105, test_acc: 0.111
+EPOCH:: 35, (77m 0s) train_cost: 2.781, test_cost: 2.553, train_acc: 0.105, test_acc: 0.109
+EPOCH:: 36, (79m 19s) train_cost: 2.807, test_cost: 2.656, train_acc: 0.105, test_acc: 0.109
+EPOCH:: 37, (81m 38s) train_cost: 2.722, test_cost: 2.651, train_acc: 0.106, test_acc: 0.102
+EPOCH:: 38, (83m 57s) train_cost: 2.807, test_cost: 2.521, train_acc: 0.105, test_acc: 0.113
+EPOCH:: 39, (86m 16s) train_cost: 2.769, test_cost: 2.687, train_acc: 0.105, test_acc: 0.120
+EPOCH:: 40, (88m 35s) train_cost: 2.833, test_cost: 2.509, train_acc: 0.105, test_acc: 0.099
+EPOCH:: 41, (90m 54s) train_cost: 2.844, test_cost: 2.648, train_acc: 0.104, test_acc: 0.116
+EPOCH:: 42, (93m 12s) train_cost: 2.765, test_cost: 3.093, train_acc: 0.108, test_acc: 0.107
+EPOCH:: 43, (95m 32s) train_cost: 2.810, test_cost: 2.644, train_acc: 0.105, test_acc: 0.109
+EPOCH:: 44, (97m 51s) train_cost: 2.781, test_cost: 3.062, train_acc: 0.106, test_acc: 0.102
+EPOCH:: 45, (100m 12s) train_cost: 2.789, test_cost: 3.041, train_acc: 0.104, test_acc: 0.095
+EPOCH:: 46, (102m 31s) train_cost: 2.742, test_cost: 2.723, train_acc: 0.106, test_acc: 0.098
+EPOCH:: 47, (104m 51s) train_cost: 2.826, test_cost: 2.653, train_acc: 0.105, test_acc: 0.115
+EPOCH:: 48, (107m 9s) train_cost: 2.771, test_cost: 2.897, train_acc: 0.105, test_acc: 0.111
+EPOCH:: 49, (109m 27s) train_cost: 2.785, test_cost: 3.255, train_acc: 0.105, test_acc: 0.113
+EPOCH:: 50, (111m 46s) train_cost: 2.770, test_cost: 2.804, train_acc: 0.106, test_acc: 0.098
+max test_acc: 0.123
+-------------------------------------------------------------------
+18回目
+{'weight_decay': 0.0020191964051103103, 'clip': 6602.630376772299, 'l_rate': 0.043909664107008584, 'dropout': 0.06490656121762683}
+EPOCH:: 1, (2m 18s) train_cost: nan, test_cost: nan, train_acc: 0.113, test_acc: 0.110
+Stop learning due to the extremely high cost
+max test_acc: 0.110
+-------------------------------------------------------------------
+19回目
+{'weight_decay': 7.040822706204121e-05, 'clip': 4389.748805208904, 'l_rate': 0.00016654418947982137, 'dropout': 0.18404592540409914}
+EPOCH:: 1, (2m 20s) train_cost: 2.183, test_cost: 1.819, train_acc: 0.160, test_acc: 0.272
+EPOCH:: 2, (4m 37s) train_cost: 1.597, test_cost: 1.440, train_acc: 0.371, test_acc: 0.440
+EPOCH:: 3, (7m 3s) train_cost: 1.393, test_cost: 1.366, train_acc: 0.459, test_acc: 0.486
+EPOCH:: 4, (9m 16s) train_cost: 1.280, test_cost: 1.203, train_acc: 0.516, test_acc: 0.559
+EPOCH:: 5, (11m 33s) train_cost: 1.155, test_cost: 1.076, train_acc: 0.588, test_acc: 0.646
+EPOCH:: 6, (13m 57s) train_cost: 1.066, test_cost: 1.078, train_acc: 0.635, test_acc: 0.633
+EPOCH:: 7, (16m 19s) train_cost: 0.979, test_cost: 0.940, train_acc: 0.664, test_acc: 0.681
+EPOCH:: 8, (18m 33s) train_cost: 0.933, test_cost: 0.882, train_acc: 0.676, test_acc: 0.693
+EPOCH:: 9, (20m 50s) train_cost: 0.889, test_cost: 0.849, train_acc: 0.688, test_acc: 0.701
+EPOCH:: 10, (23m 15s) train_cost: 0.843, test_cost: 0.810, train_acc: 0.701, test_acc: 0.710
+EPOCH:: 11, (25m 29s) train_cost: 0.787, test_cost: 0.743, train_acc: 0.717, test_acc: 0.734
+EPOCH:: 12, (27m 42s) train_cost: 0.683, test_cost: 0.612, train_acc: 0.759, test_acc: 0.787
+EPOCH:: 13, (29m 58s) train_cost: 0.610, test_cost: 0.594, train_acc: 0.783, test_acc: 0.795
+EPOCH:: 14, (31m 45s) train_cost: 0.574, test_cost: 0.523, train_acc: 0.795, test_acc: 0.818
+EPOCH:: 15, (33m 48s) train_cost: 0.542, test_cost: 0.568, train_acc: 0.806, test_acc: 0.798
+EPOCH:: 16, (36m 0s) train_cost: 0.517, test_cost: 0.481, train_acc: 0.816, test_acc: 0.829
+EPOCH:: 17, (38m 12s) train_cost: 0.488, test_cost: 0.456, train_acc: 0.827, test_acc: 0.840
+EPOCH:: 18, (40m 12s) train_cost: 0.462, test_cost: 0.434, train_acc: 0.836, test_acc: 0.849
+EPOCH:: 19, (42m 28s) train_cost: 0.440, test_cost: 0.414, train_acc: 0.844, test_acc: 0.855
+EPOCH:: 20, (44m 48s) train_cost: 0.417, test_cost: 0.408, train_acc: 0.855, test_acc: 0.861
+EPOCH:: 21, (47m 3s) train_cost: 0.399, test_cost: 0.362, train_acc: 0.862, test_acc: 0.874
+EPOCH:: 22, (49m 21s) train_cost: 0.384, test_cost: 0.365, train_acc: 0.868, test_acc: 0.877
+EPOCH:: 23, (51m 37s) train_cost: 0.363, test_cost: 0.339, train_acc: 0.874, test_acc: 0.885
+EPOCH:: 24, (53m 54s) train_cost: 0.342, test_cost: 0.343, train_acc: 0.885, test_acc: 0.883
+EPOCH:: 25, (56m 14s) train_cost: 0.326, test_cost: 0.324, train_acc: 0.890, test_acc: 0.895
+EPOCH:: 26, (58m 27s) train_cost: 0.323, test_cost: 0.311, train_acc: 0.892, test_acc: 0.897
+EPOCH:: 27, (60m 50s) train_cost: 0.304, test_cost: 0.287, train_acc: 0.899, test_acc: 0.905
+EPOCH:: 28, (63m 6s) train_cost: 0.300, test_cost: 0.289, train_acc: 0.901, test_acc: 0.906
+EPOCH:: 29, (65m 22s) train_cost: 0.285, test_cost: 0.270, train_acc: 0.905, test_acc: 0.911
+EPOCH:: 30, (67m 39s) train_cost: 0.279, test_cost: 0.263, train_acc: 0.908, test_acc: 0.912
+EPOCH:: 31, (70m 0s) train_cost: 0.272, test_cost: 0.256, train_acc: 0.910, test_acc: 0.915
+EPOCH:: 32, (72m 23s) train_cost: 0.267, test_cost: 0.249, train_acc: 0.912, test_acc: 0.919
+EPOCH:: 33, (74m 38s) train_cost: 0.258, test_cost: 0.262, train_acc: 0.915, test_acc: 0.914
+EPOCH:: 34, (76m 57s) train_cost: 0.253, test_cost: 0.245, train_acc: 0.917, test_acc: 0.920
+EPOCH:: 35, (79m 9s) train_cost: 0.245, test_cost: 0.237, train_acc: 0.920, test_acc: 0.921
+EPOCH:: 36, (81m 27s) train_cost: 0.244, test_cost: 0.234, train_acc: 0.920, test_acc: 0.921
+EPOCH:: 37, (83m 49s) train_cost: 0.236, test_cost: 0.251, train_acc: 0.921, test_acc: 0.916
+EPOCH:: 38, (86m 1s) train_cost: 0.231, test_cost: 0.223, train_acc: 0.924, test_acc: 0.926
+EPOCH:: 39, (88m 26s) train_cost: 0.225, test_cost: 0.217, train_acc: 0.926, test_acc: 0.930
+EPOCH:: 40, (90m 38s) train_cost: 0.220, test_cost: 0.216, train_acc: 0.928, test_acc: 0.928
+EPOCH:: 41, (92m 59s) train_cost: 0.214, test_cost: 0.207, train_acc: 0.929, test_acc: 0.931
+EPOCH:: 42, (95m 18s) train_cost: 0.211, test_cost: 0.207, train_acc: 0.930, test_acc: 0.932
+EPOCH:: 43, (97m 41s) train_cost: 0.207, test_cost: 0.212, train_acc: 0.931, test_acc: 0.930
+EPOCH:: 44, (99m 59s) train_cost: 0.207, test_cost: 0.205, train_acc: 0.930, test_acc: 0.932
+EPOCH:: 45, (102m 21s) train_cost: 0.199, test_cost: 0.190, train_acc: 0.934, test_acc: 0.938
+EPOCH:: 46, (104m 44s) train_cost: 0.198, test_cost: 0.188, train_acc: 0.933, test_acc: 0.938
+EPOCH:: 47, (106m 54s) train_cost: 0.193, test_cost: 0.198, train_acc: 0.935, test_acc: 0.935
+EPOCH:: 48, (109m 14s) train_cost: 0.191, test_cost: 0.200, train_acc: 0.935, test_acc: 0.932
+EPOCH:: 49, (111m 31s) train_cost: 0.187, test_cost: 0.197, train_acc: 0.938, test_acc: 0.935
+EPOCH:: 50, (113m 46s) train_cost: 0.188, test_cost: 0.183, train_acc: 0.937, test_acc: 0.941
+max test_acc: 0.941
+-------------------------------------------------------------------
+20回目
+{'weight_decay': 0.00032916713492223793, 'clip': 25.81725351260949, 'l_rate': 0.01936966399099752, 'dropout': 0.2481568555287883}
+EPOCH:: 1, (2m 22s) train_cost: 2.308, test_cost: 2.304, train_acc: 0.102, test_acc: 0.110
+EPOCH:: 2, (4m 43s) train_cost: 2.442, test_cost: 2.696, train_acc: 0.105, test_acc: 0.103
+EPOCH:: 3, (7m 3s) train_cost: 2.374, test_cost: 2.331, train_acc: 0.130, test_acc: 0.168
+EPOCH:: 4, (9m 16s) train_cost: 2.076, test_cost: 1.751, train_acc: 0.228, test_acc: 0.345
+EPOCH:: 5, (11m 39s) train_cost: 1.739, test_cost: 1.510, train_acc: 0.322, test_acc: 0.430
+EPOCH:: 6, (14m 1s) train_cost: 1.529, test_cost: 1.262, train_acc: 0.414, test_acc: 0.524
+EPOCH:: 7, (16m 18s) train_cost: 1.338, test_cost: 1.139, train_acc: 0.494, test_acc: 0.547
+EPOCH:: 8, (18m 34s) train_cost: 1.255, test_cost: 1.106, train_acc: 0.535, test_acc: 0.593
+EPOCH:: 9, (20m 54s) train_cost: 1.152, test_cost: 0.916, train_acc: 0.581, test_acc: 0.676
+EPOCH:: 10, (23m 12s) train_cost: 1.109, test_cost: 0.873, train_acc: 0.604, test_acc: 0.716
+EPOCH:: 11, (25m 32s) train_cost: 1.114, test_cost: 0.853, train_acc: 0.603, test_acc: 0.699
+EPOCH:: 12, (27m 51s) train_cost: 0.924, test_cost: 0.671, train_acc: 0.676, test_acc: 0.769
+EPOCH:: 13, (30m 6s) train_cost: 0.833, test_cost: 0.671, train_acc: 0.708, test_acc: 0.769
+EPOCH:: 14, (32m 22s) train_cost: 0.717, test_cost: 0.523, train_acc: 0.752, test_acc: 0.808
+EPOCH:: 15, (34m 41s) train_cost: 0.652, test_cost: 0.657, train_acc: 0.776, test_acc: 0.758
+EPOCH:: 16, (36m 52s) train_cost: 0.600, test_cost: 0.457, train_acc: 0.796, test_acc: 0.854
+EPOCH:: 17, (39m 4s) train_cost: 0.553, test_cost: 0.444, train_acc: 0.815, test_acc: 0.857
+EPOCH:: 18, (40m 59s) train_cost: 0.518, test_cost: 0.385, train_acc: 0.828, test_acc: 0.876
+EPOCH:: 19, (43m 11s) train_cost: 0.512, test_cost: 0.363, train_acc: 0.830, test_acc: 0.885
+EPOCH:: 20, (45m 36s) train_cost: 0.518, test_cost: 0.362, train_acc: 0.828, test_acc: 0.881
+EPOCH:: 21, (47m 53s) train_cost: 0.466, test_cost: 0.372, train_acc: 0.850, test_acc: 0.878
+EPOCH:: 22, (49m 43s) train_cost: 0.418, test_cost: 0.328, train_acc: 0.866, test_acc: 0.892
+EPOCH:: 23, (51m 53s) train_cost: 0.402, test_cost: 0.359, train_acc: 0.873, test_acc: 0.887
+EPOCH:: 24, (53m 54s) train_cost: 0.405, test_cost: 0.348, train_acc: 0.872, test_acc: 0.889
+EPOCH:: 25, (56m 5s) train_cost: 0.381, test_cost: 0.312, train_acc: 0.881, test_acc: 0.901
+EPOCH:: 26, (58m 26s) train_cost: 0.362, test_cost: 0.294, train_acc: 0.885, test_acc: 0.905
+EPOCH:: 27, (60m 45s) train_cost: 0.354, test_cost: 0.324, train_acc: 0.886, test_acc: 0.895
+EPOCH:: 28, (63m 5s) train_cost: 0.645, test_cost: 0.455, train_acc: 0.793, test_acc: 0.857
+EPOCH:: 29, (65m 19s) train_cost: 0.421, test_cost: 0.347, train_acc: 0.865, test_acc: 0.892
+EPOCH:: 30, (67m 39s) train_cost: 0.378, test_cost: 0.322, train_acc: 0.879, test_acc: 0.894
+EPOCH:: 31, (69m 59s) train_cost: 0.349, test_cost: 0.407, train_acc: 0.887, test_acc: 0.863
+EPOCH:: 32, (72m 11s) train_cost: 0.789, test_cost: 0.574, train_acc: 0.732, test_acc: 0.781
+EPOCH:: 33, (74m 12s) train_cost: 0.564, test_cost: 0.358, train_acc: 0.807, test_acc: 0.880
+EPOCH:: 34, (76m 29s) train_cost: 0.390, test_cost: 0.332, train_acc: 0.875, test_acc: 0.889
+EPOCH:: 35, (78m 47s) train_cost: 0.339, test_cost: 0.266, train_acc: 0.893, test_acc: 0.914
+EPOCH:: 36, (80m 59s) train_cost: 0.309, test_cost: 0.251, train_acc: 0.900, test_acc: 0.918
+EPOCH:: 37, (83m 17s) train_cost: 0.304, test_cost: 0.327, train_acc: 0.902, test_acc: 0.889
