@@ -12,10 +12,10 @@ from torch.autograd import Variable
 from models import SRU, GRU, LSTM
 
 gpu = True
-torch.cuda.set_device(2)
+torch.cuda.set_device(1)
 seed = 42
 torch.manual_seed(seed)
-dir_path = './trained_models/ipynb'
+dir_path = './sandbox'
 
 
 def load_mnist():
@@ -110,7 +110,7 @@ def load_model(model_name):
         hidden_size = 200
         num_layers  = 1
         init_forget_bias = 1
-    
+
     # モデルのインスタンス作成
     if model_name == 'sru':
         model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout, gpu=gpu)

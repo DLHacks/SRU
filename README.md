@@ -12,13 +12,12 @@
 
 ## Implement
 
-- `python main.py sru` : tuning hyper parameters with hyperopt. 
+- `python tune_params.py sru` : tuning hyper parameters with hyperopt.
 - Choose the model to be tuned from [sru, gru, lstm]
-- If you need more information, please run `python main.py --help`.
+- If you need more information, please run `python tune_params.py --help`.
 
 
 ## notes
 
 - I choose Adam for optimization, though SGD is used in the paper. (It might converge faster)
 - weight_decay is used. (The paper doesn't refer to it)
-- In SRU model, I add a fully connected layer to the outputs of SRUCell. (I'm not sure whether it is used in the original)
