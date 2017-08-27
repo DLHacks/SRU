@@ -2,6 +2,7 @@
 /data.zip
 /mnist
 __*
+/logs
 *.log
 .ipynb_checkpoints
 /sandbox
