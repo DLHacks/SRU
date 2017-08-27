@@ -7,7 +7,7 @@
 ## Description
 
 - Powered by [DL HACKS](http://deeplearning.jp/hacks/)
-- This repository is designed for implementing reproducible experiments of the SRU experiment with pixel-by-pixel sequential MNIST.
+- This repository is designed for implementing reproduction of the SRU experiment with pixel-by-pixel sequential MNIST.
 - environment: python3.5
 
 
