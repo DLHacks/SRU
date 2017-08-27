@@ -280,7 +280,7 @@ def objective(args):
     print('max test_acc: %.3f' % max(all_acc))
 
     # test_accの最大値をhyperoptに評価させる
-    return max(all_acc)
+    return -max(all_acc)
 
 best = fmin(objective, parameter_space, algo=tpe.suggest, max_evals=iteration,
             rstate=np.random.RandomState(seed))
