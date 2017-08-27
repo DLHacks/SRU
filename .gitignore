@@ -7,3 +7,4 @@ __*
 .ipynb_checkpoints
 /sandbox
 /trained_models/*
+/main/*
