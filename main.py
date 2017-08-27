@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+""" Script for running RNNs with fixed parameters. """
+
 import os
+import argparse
 import time
 import math
 import numpy as np
@@ -11,12 +15,32 @@ import torch.optim as optim
 from torch.autograd import Variable
 from models import SRU, GRU, LSTM
 
-gpu = True
-torch.cuda.set_device(1)
-seed = 42
-torch.manual_seed(seed)
-dir_path = './sandbox'
+parser = argparse.ArgumentParser(description='Run hyperopt')
+parser.add_argument('model', type=str, default='sru',
+                     help='[sru, gru, lstm]: select your model')
+parser.add_argument('--gpu', type=int, default=1,
+                     help='set -1 when you use cpu')
+parser.add_argument('--batch-size', type=int, default=512,
+                     help='set batch_size, default: 512')
+parser.add_argument('--seed', type=int, default=0,
+                     help='set random seed')
+parser.add_argument('--devise-id', type=int, default=0,
+                     help='select gpu devise id')
 
+args       = parser.parse_args()
+model_name = args.model
+gpu        = args.gpu
+batch_size = args.batch_size
+seed       = args.seed
+devise_id  = args.devise_id
+
+torch.cuda.set_device(devise_id)
+torch.manual_seed(seed)
+dir_path = './main/trained_models'
+print('%s starting......' % model_name)
+
+
+''' データセット準備 '''
 
 def load_mnist():
     mnist = fetch_mldata('MNIST original')
@@ -53,6 +77,8 @@ def load_mnist():
 train_X, test_X, train_y, test_y = load_mnist()
 
 
+''' 訓練の準備 '''
+
 # 計算時間を表示させる
 def timeSince(since):
     now = time.time()
@@ -71,7 +97,7 @@ def train(model, inputs, labels, optimizer, criterion, clip):
     torch.nn.utils.clip_grad_norm(model.parameters(), clip) # gradient clipping
     loss.backward()
     optimizer.step()
-    acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
+    acc = (torch.max(outputs, 1)[1] == labels).float().sum().data[0] / batch_size
     return loss.data[0], acc
 
 # 検証
@@ -80,7 +106,7 @@ def test(model, inputs, labels, criterion):
     model.initHidden(batch_size)
     outputs = model(inputs)
     loss = criterion(outputs, labels)
-    acc = (torch.max(outputs, 1)[1] == labels).sum().data[0] / batch_size
+    acc = (torch.max(outputs, 1)[1] == labels).float().sum().data[0] / batch_size
     return loss.data[0], acc
 
 # モデルの保存
@@ -96,58 +122,52 @@ input_size = train_X.shape[2]
 output_size = np.unique(train_y).size
 
 # パラメータの設定
-lr = 0.0005
-weight_decay = 0.0005
-dropout = 0.8
-clip = 1
+if model_name == 'sru':
+    phi_size      = 200
+    r_size        = 60
+    cell_out_size = 200
+    lr = 0.0005
+    weight_decay = 0.0005
+    dropout = 0.8
+    clip = 1
+elif model_name =='gru':
+    hidden_size = 200
+    num_layers  = 1
+    init_forget_bias = 1
+    lr = 0.0037046604805510137
+    weight_decay = 0.00011813244108811544
+    dropout = 0.26173877481275953
+    clip = 2925.4042227640757
+elif model_name == 'lstm':
+    hidden_size = 200
+    num_layers  = 1
+    init_forget_bias = 1
+    lr = 0.00016654418947982137
+    weight_decay = 7.040822706204121e-05
+    dropout = 0.18404592540409914
+    clip = 4389.748805208904
 
-def load_model(model_name):
-    if model_name == 'sru':
-        phi_size      = 200
-        r_size        = 60
-        cell_out_size = 200
-    elif model_name in ['gru', 'lstm']:
-        hidden_size = 200
-        num_layers  = 1
-        init_forget_bias = 1
+# モデルのインスタンス作成
+if model_name == 'sru':
+    model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout, gpu=gpu)
+    model.initWeight()
+elif model_name == 'gru':
+    model = GRU(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
+    model.initWeight(init_forget_bias)
+elif model_name == 'lstm':
+    model = LSTM(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
+    model.initWeight(init_forget_bias)
+if gpu == True:
+    model.cuda()
 
-    # モデルのインスタンス作成
-    if model_name == 'sru':
-        model = SRU(input_size, phi_size, r_size, cell_out_size, output_size, dropout=dropout, gpu=gpu)
-        model.initWeight()
-    elif model_name == 'gru':
-        model = GRU(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
-        model.initWeight(init_forget_bias)
-    elif model_name == 'lstm':
-        model = LSTM(input_size, hidden_size, output_size, num_layers, dropout, gpu=gpu)
-        model.initWeight(init_forget_bias)
-    if gpu == True:
-        model.cuda()
-
-    return model
-
-model = load_model('sru')
 # loss, optimizerの定義
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
 
-model.load_state_dict(torch.load(dir_path + '/SRU_acc-4545.model'))
-if gpu == True:
-    model.cuda()
-    model._gpu = True
-    model.A_mask = model.A_mask.cuda()
-    optimizer.load_state_dict(torch.load(dir_path + '/SRU_acc-4545.state'))
-else:
-    model.cpu()
-    model._gpu = False
-    model.A_mask = model.A_mask.cpu()
-
-
 ''' 訓練 '''
 
 n_epochs = 200
-batch_size = 512
 n_batches = train_X.shape[0]//batch_size
 n_batches_test = test_X.shape[0]//batch_size
 all_acc = []
