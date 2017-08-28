@@ -36,7 +36,7 @@ devise_id  = args.devise_id
 
 torch.cuda.set_device(devise_id)
 torch.manual_seed(seed)
-dir_path = './main/trained_models'
+dir_path = './trained_models/main'
 print('%s starting......' % model_name)
 
 
@@ -126,10 +126,10 @@ if model_name == 'sru':
     phi_size      = 200
     r_size        = 60
     cell_out_size = 200
-    lr = 0.0005
-    weight_decay = 0.0005
-    dropout = 0.8
-    clip = 1
+    lr = 0.0005174277555790016
+    weight_decay = 3.9473232493735065e-05
+    dropout = 0.7281811891811246
+    clip = 17.380962431598327
 elif model_name =='gru':
     hidden_size = 200
     num_layers  = 1
