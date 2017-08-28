@@ -6,14 +6,16 @@
 
 ## Description
 
-- This repository is designed for implementing reproducible experiments of the SRU experiment with pixel-by-pixel sequential MNIST.
+- Powered by [DL HACKS](http://deeplearning.jp/hacks/)
+- This repository is designed for reproducting the experiment of SRU with pixel-by-pixel sequential MNIST.
 - environment: python3.5
 
 
 ## Implement
 
+- `python main.py sru`: trainning RNNs with fixed parameters
 - `python tune_params.py sru` : tuning hyper parameters with hyperopt.
-- Choose the model to be tuned from [sru, gru, lstm]
+- Choose your model from [sru, gru, lstm]
 - If you need more information, please run `python tune_params.py --help`.
 
 
