@@ -1,4 +1,4 @@
-# [WIP] Reproducible Experiments of "The Statistical Recurrent Unit"
+# Reproducible Experiments of "The Statistical Recurrent Unit"
 
 - authors: Junier B. Oliva, Barnabas Poczos, Jeff Schneider
 - arxiv: https://arxiv.org/abs/1703.00381
