@@ -15,7 +15,7 @@ import torch.optim as optim
 from torch.autograd import Variable
 from models import SRU, GRU, LSTM
 
-parser = argparse.ArgumentParser(description='Run hyperopt')
+parser = argparse.ArgumentParser()
 parser.add_argument('model', type=str, default='sru',
                      help='[sru, gru, lstm]: select your model')
 parser.add_argument('--gpu', type=int, default=1,
@@ -167,7 +167,7 @@ optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
 ''' 訓練 '''
 
-n_epochs = 200
+n_epochs = 400
 n_batches = train_X.shape[0]//batch_size
 n_batches_test = test_X.shape[0]//batch_size
 all_acc = []
